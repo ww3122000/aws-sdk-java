@@ -1426,6 +1426,87 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
+    
+    /**
+     * <p>
+     * 预加载.
+     * </p>
+     *
+     * @param createPreloadRequest 预加载的请求.
+     * 
+     * @return 预加载结果.
+     * 
+     * @throws TooManyInvalidationsInProgressException
+     * @throws MissingBodyException
+     * @throws NoSuchDistributionException
+     * @throws BatchTooLargeException
+     * @throws AccessDeniedException
+     * @throws InvalidArgumentException
+     * @throws InconsistentQuantitiesException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public CreatePreloadResult createPreload(CreatePreloadRequest createPreloadRequest) {
+        ExecutionContext executionContext = createExecutionContext(createPreloadRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreatePreloadRequest> request = null;
+        Response<CreatePreloadResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreatePreloadRequestMarshaller().marshall(super.beforeMarshalling(createPreloadRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+            
+            response = invoke(request, new CreatePreloadResultStaxUnmarshaller(), executionContext);
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+    
+    /**
+     * 计算带宽
+     * @param calculateBandwidthRequest
+     * @return
+     */
+    public CalculateBandwidthResult calculateBandwidth(CalculateBandwidthRequest calculateBandwidthRequest) {
+        ExecutionContext executionContext = createExecutionContext(calculateBandwidthRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CalculateBandwidthRequest> request = null;
+        Response<CalculateBandwidthResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CalculateBandwidthRequestMarshaller().marshall(super.beforeMarshalling(calculateBandwidthRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+            
+            response = invoke(request, new CalculateBandwidthResultStaxUnmarshaller(), executionContext);
+            return response.getAwsResponse();
+            
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
 
     /**
      * Returns additional metadata for a previously executed successful, request, typically used for
