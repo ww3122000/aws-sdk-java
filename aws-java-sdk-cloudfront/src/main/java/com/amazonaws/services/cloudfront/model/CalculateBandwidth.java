@@ -16,39 +16,57 @@ package com.amazonaws.services.cloudfront.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * <p>
  * An 计算带宽.
  * </p>
  */
+@XmlRootElement(name="CalculateBandwidth")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class CalculateBandwidth implements Serializable, Cloneable {
 
     /**
      * The user's id.
      */
+    @XmlElement(name = "UserId")
     private String userId;
 
     /**
-     * The response style type.
+     * 维度.
      */
-    private String type;
+    @XmlElement(name = "Dimension")
+    private String dimension;
+    
+    /**
+     * The response style type
+     */
+    private String outType;
 
     /**
      * 起始时间.
      */
+    @XmlElement(name = "StartTime")
     private String startTime;
 
     /**
      * 结束时间.
      */
+    @XmlElement(name = "EndTime")
     private String endTime;
     
     /**
      * 域名
      */
+    @XmlElement(name = "Domain")
     private String domain;
 
     /** 带宽. */
+    @XmlElement(name = "Bandwidth")
     private String bandwidth;
 
     /**
@@ -67,24 +85,6 @@ public class CalculateBandwidth implements Serializable, Cloneable {
      */
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    /**
-     * Gets the response style type.
-     *
-     * @return the response style type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * Sets the response style type.
-     *
-     * @param type the new response style type
-     */
-    public void setType(String type) {
-        this.type = type;
     }
 
     /**
@@ -158,67 +158,45 @@ public class CalculateBandwidth implements Serializable, Cloneable {
     public void setDomain(String domain) {
         this.domain = domain;
     }
-    
-    
 
+    /**
+     * Gets the 维度.
+     *
+     * @return the 维度
+     */
+    public String getDimension() {
+        return dimension;
+    }
+
+    /**
+     * Sets the 维度.
+     *
+     * @param dimension the new 维度
+     */
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
+    }
+
+    /**
+     * Gets the response style type.
+     *
+     * @return the response style type
+     */
+    public String getOutType() {
+        return outType;
+    }
+
+    /**
+     * @param outType
+     */
+    public void setOutType(String outType) {
+        this.outType = outType;
+    }
+    
     @Override
     public String toString() {
-        return "CalculateBandwidth [userId=" + userId + ", type=" + type + ", startTime=" + startTime + ", endTime=" + endTime + ", domain=" + domain + ", bandwidth=" + bandwidth + "]";
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((bandwidth == null) ? 0 : bandwidth.hashCode());
-        result = prime * result + ((domain == null) ? 0 : domain.hashCode());
-        result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
-        result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        CalculateBandwidth other = (CalculateBandwidth) obj;
-        if (bandwidth == null) {
-            if (other.bandwidth != null)
-                return false;
-        } else if (!bandwidth.equals(other.bandwidth))
-            return false;
-        if (domain == null) {
-            if (other.domain != null)
-                return false;
-        } else if (!domain.equals(other.domain))
-            return false;
-        if (endTime == null) {
-            if (other.endTime != null)
-                return false;
-        } else if (!endTime.equals(other.endTime))
-            return false;
-        if (startTime == null) {
-            if (other.startTime != null)
-                return false;
-        } else if (!startTime.equals(other.startTime))
-            return false;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
-            return false;
-        if (userId == null) {
-            if (other.userId != null)
-                return false;
-        } else if (!userId.equals(other.userId))
-            return false;
-        return true;
+        return "CalculateBandwidth [userId=" + userId + ", dimension=" + dimension + ", outType=" + outType + ", startTime=" + startTime + ", endTime=" + endTime + ", domain=" + domain
+                + ", bandwidth=" + bandwidth + "]";
     }
 
     /* (non-Javadoc)
