@@ -42,9 +42,8 @@ public class CalculateBandwidth implements Serializable, Cloneable {
     @XmlElement(name = "Dimension")
     private String dimension;
     
-    /**
-     * The response style type
-     */
+    /** 返回结果格式类型：1：自定义json 2：标准json 3：xml. */
+    @XmlElement(name = "OutType")
     private String outType;
 
     /**
@@ -59,15 +58,21 @@ public class CalculateBandwidth implements Serializable, Cloneable {
     @XmlElement(name = "EndTime")
     private String endTime;
     
-    /**
-     * 域名
-     */
+    /** 域名. */
     @XmlElement(name = "Domain")
     private String domain;
 
     /** 带宽. */
     @XmlElement(name = "Bandwidth")
     private String bandwidth;
+    
+    /**  地区 *. */
+    @XmlElement(name = "Region")
+    private String region;
+    
+    /**  加速类型 *. */
+    @XmlElement(name = "Accetype")
+    private String accetype;
 
     /**
      * Gets the user's id.
@@ -178,25 +183,63 @@ public class CalculateBandwidth implements Serializable, Cloneable {
     }
 
     /**
-     * Gets the response style type.
+     * Gets the 返回结果格式类型：1：自定义json 2：标准json 3：xml.
      *
-     * @return the response style type
+     * @return the 返回结果格式类型：1：自定义json 2：标准json 3：xml
      */
     public String getOutType() {
         return outType;
     }
 
     /**
-     * @param outType
+     * Sets the 返回结果格式类型：1：自定义json 2：标准json 3：xml.
+     *
+     * @param outType the new 返回结果格式类型：1：自定义json 2：标准json 3：xml
      */
     public void setOutType(String outType) {
         this.outType = outType;
     }
     
+    /**
+     * Gets the 加速类型 *.
+     *
+     * @return the 加速类型 *
+     */
+    public String getAccetype() {
+        return accetype;
+    }
+
+    /**
+     * Sets the 加速类型 *.
+     *
+     * @param accetype the new 加速类型 *
+     */
+    public void setAccetype(String accetype) {
+        this.accetype = accetype;
+    }
+
+    /**
+     * Gets the 地区 *.
+     *
+     * @return the 地区 *
+     */
+    public String getRegion() {
+        return region;
+    }
+
+    /**
+     * Sets the 地区 *.
+     *
+     * @param region the new 地区 *
+     */
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
     @Override
     public String toString() {
         return "CalculateBandwidth [userId=" + userId + ", dimension=" + dimension + ", outType=" + outType + ", startTime=" + startTime + ", endTime=" + endTime + ", domain=" + domain
-                + ", bandwidth=" + bandwidth + "]";
+                + ", bandwidth=" + bandwidth + ", region=" + region + ", accetype=" + accetype + "]";
     }
 
     /* (non-Javadoc)

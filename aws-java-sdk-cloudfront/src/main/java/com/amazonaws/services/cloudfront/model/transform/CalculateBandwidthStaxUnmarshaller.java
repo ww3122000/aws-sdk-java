@@ -68,6 +68,14 @@ public class CalculateBandwidthStaxUnmarshaller implements Unmarshaller<Calculat
                     calculateBandwidth.setBandwidth(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("Region", targetDepth)) {
+                	calculateBandwidth.setRegion(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
+                }
+                if (context.testExpression("Accetype", targetDepth)) {
+                	calculateBandwidth.setAccetype(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return calculateBandwidth;

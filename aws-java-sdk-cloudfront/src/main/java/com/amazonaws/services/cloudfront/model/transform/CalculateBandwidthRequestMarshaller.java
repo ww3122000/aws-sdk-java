@@ -137,6 +137,14 @@ public class CalculateBandwidthRequestMarshaller implements Marshaller<Request<C
                     if (domain != null) {
                         xmlWriter.startElement("Domain").value(domain).endElement();
                     }
+                    String region = calculateBandwidth.getRegion();
+                    if (region != null) {
+                    	xmlWriter.startElement("Region").value(region).endElement();
+                    }
+                    String accetype = calculateBandwidth.getAccetype();
+                    if (accetype != null) {
+                    	xmlWriter.startElement("Accetype").value(accetype).endElement();
+                    }
                 }
                 xmlWriter.endElement();
             }

@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.cloudfront.model.AccetypeEnum;
 import com.amazonaws.services.cloudfront.model.BatchTooLargeException;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidth;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidthRequest;
@@ -23,6 +24,7 @@ import com.amazonaws.services.cloudfront.model.CreatePreloadResult;
 import com.amazonaws.services.cloudfront.model.InvalidationBatch;
 import com.amazonaws.services.cloudfront.model.Paths;
 import com.amazonaws.services.cloudfront.model.PreloadBatch;
+import com.amazonaws.services.cloudfront.model.RegionEnum;
 
 public class AmazonCloudFrontClientTest {
 
@@ -54,8 +56,8 @@ public class AmazonCloudFrontClientTest {
         config.setMaxErrorRetry(0);
         client = new AmazonCloudFrontClient(credentials, config);
         // 2. 设置 调用的地址
-//        client.setEndpoint("http://cdnapi.ksyun.com");
-        client.setEndpoint("http://localhost:8090");
+        client.setEndpoint("http://cdnapi.ksyun.com");
+//        client.setEndpoint("http://localhost:8090");
 //      client.setEndpoint("http://10.4.2.37:18989");
     }
 
@@ -213,7 +215,8 @@ public class AmazonCloudFrontClientTest {
     public void testCalculateBandwidth() {
         String distributionId = null;
         CalculateBandwidth calculateBandwidth = new CalculateBandwidth();
-        calculateBandwidth.setUserId("73401036"); //  设置用户id
+//        calculateBandwidth.setUserId("73401036"); //  设置用户id——1
+        calculateBandwidth.setUserId("73398729"); //  设置用户id
         calculateBandwidth.setOutType("2");// 设置返回结果类型 1：自定义json 2：标准json 3：xml
         
         /* 设置维度
@@ -223,11 +226,16 @@ public class AmazonCloudFrontClientTest {
          * 4：用户维度的带宽
          * 5：用户维度查询时间范围内带宽峰值
          * 6：用户维度查询时间范围内流量总和
+         * 7：域名维度的每天峰值
+         * 8：用户维度的每天峰值
          */
-        calculateBandwidth.setDimension("4");
-        calculateBandwidth.setStartTime("201601090010"); // 201512020000  开始时间
+        calculateBandwidth.setDimension("8");
+        calculateBandwidth.setAccetype(AccetypeEnum.download.getValue());
+        calculateBandwidth.setRegion(RegionEnum.all.getValue());
+        calculateBandwidth.setStartTime("201601130010"); // 201512020000  开始时间
         calculateBandwidth.setEndTime("201601170010"); // 201512020010 结束时间
-        calculateBandwidth.setDomain("static.feidieshuo.com"); //查询的域名
+//        calculateBandwidth.setDomain("static.feidieshuo.com"); //查询的域名——1
+        calculateBandwidth.setDomain("dl3.caohua.com;dl7.caohua.com;api.agents.caohua.com"); //查询的域名
         
         //创建流量带宽请求
         CalculateBandwidthRequest request = new CalculateBandwidthRequest(distributionId, calculateBandwidth);
