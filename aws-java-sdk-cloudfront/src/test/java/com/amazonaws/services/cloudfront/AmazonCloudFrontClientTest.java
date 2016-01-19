@@ -44,7 +44,6 @@ public class AmazonCloudFrontClientTest {
 //        final String accessKey = "wangwei-1";
         final String accessKey = "wangwei";
         final String secretKey = "wJalrXUtnFEMI"; 
-        String domain = "www.ksyun.com";
         
 //        final String accessKey = "AKIAJA2CTMPLK2JEFSBQ";
 //        final String secretKey = "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"; 
@@ -55,6 +54,7 @@ public class AmazonCloudFrontClientTest {
         config.setMaxErrorRetry(0);
         client = new AmazonCloudFrontClient(credentials, config);
         // 2. 设置 调用的地址
+//        client.setEndpoint("http://cdnapi.ksyun.com");
         client.setEndpoint("http://localhost:8090");
 //      client.setEndpoint("http://10.4.2.37:18989");
     }
@@ -71,7 +71,7 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testCreateInvalidation() throws UnsupportedEncodingException {
     	// 1. 刷新的域名
-        String domain = "www.ksyun.com";
+        String domain = "www.baidu.com";
         String distributionId = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distributionId: " + distributionId);
         
@@ -213,7 +213,7 @@ public class AmazonCloudFrontClientTest {
     public void testCalculateBandwidth() {
         String distributionId = null;
         CalculateBandwidth calculateBandwidth = new CalculateBandwidth();
-        calculateBandwidth.setUserId("fd31621572d3f075bcfb1c91bd10926b"); //  设置用户id
+        calculateBandwidth.setUserId("73401036"); //  设置用户id
         calculateBandwidth.setOutType("2");// 设置返回结果类型 1：自定义json 2：标准json 3：xml
         
         /* 设置维度
@@ -224,10 +224,10 @@ public class AmazonCloudFrontClientTest {
          * 5：用户维度查询时间范围内带宽峰值
          * 6：用户维度查询时间范围内流量总和
          */
-        calculateBandwidth.setDimension("1");
-        calculateBandwidth.setStartTime("201511020010"); // 201512020000  开始时间
-        calculateBandwidth.setEndTime("201512020010"); // 201512020010 结束时间
-        calculateBandwidth.setDomain("www.baidu.com"); //查询的域名
+        calculateBandwidth.setDimension("4");
+        calculateBandwidth.setStartTime("201601090010"); // 201512020000  开始时间
+        calculateBandwidth.setEndTime("201601170010"); // 201512020010 结束时间
+        calculateBandwidth.setDomain("static.feidieshuo.com"); //查询的域名
         
         //创建流量带宽请求
         CalculateBandwidthRequest request = new CalculateBandwidthRequest(distributionId, calculateBandwidth);
@@ -235,7 +235,6 @@ public class AmazonCloudFrontClientTest {
         //发送流量带宽请求
         CalculateBandwidthResult result = client.calculateBandwidth(request);
         System.out.println(result.getCalculateBandwidth().getBandwidth());
-        System.out.println(result.toString());
     }
     
     

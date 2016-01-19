@@ -1480,6 +1480,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
     /**
      * 计算带宽
      * @param calculateBandwidthRequest
+     * @throws AmazonServiceException
      * @return
      */
     public CalculateBandwidthResult calculateBandwidth(CalculateBandwidthRequest calculateBandwidthRequest) {
