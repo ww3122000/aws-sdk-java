@@ -36,11 +36,9 @@ public class CalculateBandwidth implements Serializable, Cloneable {
     @XmlElement(name = "UserId")
     private String userId;
 
-    /**
-     * 维度.
-     */
-    @XmlElement(name = "Dimension")
-    private String dimension;
+    /** 查询的类型 **/
+    @XmlElement(name = "Type")
+    private String type;
     
     /** 返回结果格式类型：1：自定义json 2：标准json 3：xml. */
     @XmlElement(name = "OutType")
@@ -164,23 +162,6 @@ public class CalculateBandwidth implements Serializable, Cloneable {
         this.domain = domain;
     }
 
-    /**
-     * Gets the 维度.
-     *
-     * @return the 维度
-     */
-    public String getDimension() {
-        return dimension;
-    }
-
-    /**
-     * Sets the 维度.
-     *
-     * @param dimension the new 维度
-     */
-    public void setDimension(String dimension) {
-        this.dimension = dimension;
-    }
 
     /**
      * Gets the 返回结果格式类型：1：自定义json 2：标准json 3：xml.
@@ -235,14 +216,32 @@ public class CalculateBandwidth implements Serializable, Cloneable {
     public void setRegion(String region) {
         this.region = region;
     }
-
-    @Override
-    public String toString() {
-        return "CalculateBandwidth [userId=" + userId + ", dimension=" + dimension + ", outType=" + outType + ", startTime=" + startTime + ", endTime=" + endTime + ", domain=" + domain
-                + ", bandwidth=" + bandwidth + ", region=" + region + ", accetype=" + accetype + "]";
+    
+    /**
+     * Gets the 查询的类型 *.
+     *
+     * @return the 查询的类型 *
+     */
+    public String getType() {
+        return type;
     }
 
-    /* (non-Javadoc)
+    /**
+     * Sets the 查询的类型 *.
+     *
+     * @param type the new 查询的类型 *
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    @Override
+    public String toString() {
+        return "CalculateBandwidth [userId=" + userId + ", outType=" + outType + ", type=" + type + ", startTime=" + startTime + ", endTime=" + endTime + ", domain=" + domain + ", bandwidth="
+                + bandwidth + ", region=" + region + ", accetype=" + accetype + "]";
+    }
+
+	/* (non-Javadoc)
      * @see java.lang.Object#clone()
      */
     @Override

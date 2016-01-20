@@ -113,14 +113,14 @@ public class CalculateBandwidthRequestMarshaller implements Marshaller<Request<C
                         xmlWriter.startElement("UserId").value(userId).endElement();
                     }
                     
-                    String dimension = calculateBandwidth.getDimension();
-                    if (dimension != null) {
-                    	xmlWriter.startElement("Dimension").value(dimension).endElement();
+                    String type = calculateBandwidth.getType();
+                    if (type != null) {
+                    	xmlWriter.startElement("Type").value(type).endElement();
                     }
                     
-                    String type = calculateBandwidth.getOutType();
-                    if (type != null) {
-                        xmlWriter.startElement("OutType").value(type).endElement();
+                    String outType = calculateBandwidth.getOutType();
+                    if (outType != null) {
+                        xmlWriter.startElement("OutType").value(outType).endElement();
                     }
                     
                     String startTime = calculateBandwidth.getStartTime();

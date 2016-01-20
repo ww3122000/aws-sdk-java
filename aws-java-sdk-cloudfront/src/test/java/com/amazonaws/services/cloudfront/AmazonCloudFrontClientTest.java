@@ -13,6 +13,7 @@ import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.cloudfront.model.AccetypeEnum;
+import com.amazonaws.services.cloudfront.model.BandwidthEnum;
 import com.amazonaws.services.cloudfront.model.BatchTooLargeException;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidth;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidthRequest;
@@ -56,9 +57,9 @@ public class AmazonCloudFrontClientTest {
         config.setMaxErrorRetry(0);
         client = new AmazonCloudFrontClient(credentials, config);
         // 2. 设置 调用的地址
-        client.setEndpoint("http://cdnapi.ksyun.com");
+//        client.setEndpoint("http://cdnapi.ksyun.com");
 //        client.setEndpoint("http://localhost:8090");
-//      client.setEndpoint("http://10.4.2.37:18989");
+      client.setEndpoint("http://10.4.2.37:18989");
     }
 
     @After
@@ -219,23 +220,15 @@ public class AmazonCloudFrontClientTest {
         calculateBandwidth.setUserId("73398729"); //  设置用户id
         calculateBandwidth.setOutType("2");// 设置返回结果类型 1：自定义json 2：标准json 3：xml
         
-        /* 设置维度
-         * 1：域名维度的带宽
-         * 2：域名维度查询时间范围内带宽峰值
-         * 3：域名维度查询时间范围内流量总和
-         * 4：用户维度的带宽
-         * 5：用户维度查询时间范围内带宽峰值
-         * 6：用户维度查询时间范围内流量总和
-         * 7：域名维度的每天峰值
-         * 8：用户维度的每天峰值
-         */
-        calculateBandwidth.setDimension("8");
+        // 设置类型，如果域名为空则是用户维度，如果给出域名则以域名维度
+        calculateBandwidth.setType(BandwidthEnum.totalFlow.getValue());
         calculateBandwidth.setAccetype(AccetypeEnum.download.getValue());
         calculateBandwidth.setRegion(RegionEnum.all.getValue());
         calculateBandwidth.setStartTime("201601130010"); // 201512020000  开始时间
         calculateBandwidth.setEndTime("201601170010"); // 201512020010 结束时间
 //        calculateBandwidth.setDomain("static.feidieshuo.com"); //查询的域名——1
-        calculateBandwidth.setDomain("dl3.caohua.com;dl7.caohua.com;api.agents.caohua.com"); //查询的域名
+//        calculateBandwidth.setDomain("dl3.caohua.com;dl7.caohua.com;api.agents.caohua.com"); //查询的域名
+//        calculateBandwidth.setDomain("dl3.caohua.com"); //查询的域名 当域名不设置的时候以用户为维度
         
         //创建流量带宽请求
         CalculateBandwidthRequest request = new CalculateBandwidthRequest(distributionId, calculateBandwidth);
