@@ -142,7 +142,7 @@ public class CreatePreloadRequestMarshaller implements Marshaller<Request<Create
 
             try {
                 String content = stringWriter.getBuffer().toString();
-                System.out.println("content: " + content);
+//                System.out.println("content: " + content);
                 request.setContent(new StringInputStream(content));
                 request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes(UTF8).length));
                 request.addHeader("Content-Type", "application/xml");
