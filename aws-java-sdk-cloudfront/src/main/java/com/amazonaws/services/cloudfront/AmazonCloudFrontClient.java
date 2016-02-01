@@ -14,25 +14,226 @@
  */
 package com.amazonaws.services.cloudfront;
 
-import org.w3c.dom.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.net.*;
-import java.util.*;
-import java.util.Map.Entry;
+import org.w3c.dom.Node;
 
-import com.amazonaws.*;
-import com.amazonaws.auth.*;
-import com.amazonaws.handlers.*;
-import com.amazonaws.http.*;
-import com.amazonaws.internal.*;
-import com.amazonaws.metrics.*;
-import com.amazonaws.regions.*;
-import com.amazonaws.transform.*;
-import com.amazonaws.util.*;
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.AmazonWebServiceClient;
+import com.amazonaws.AmazonWebServiceRequest;
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.Request;
+import com.amazonaws.Response;
+import com.amazonaws.ResponseMetadata;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.handlers.HandlerChainFactory;
+import com.amazonaws.http.DefaultErrorResponseHandler;
+import com.amazonaws.http.ExecutionContext;
+import com.amazonaws.http.StaxResponseHandler;
+import com.amazonaws.internal.StaticCredentialsProvider;
+import com.amazonaws.metrics.RequestMetricCollector;
+import com.amazonaws.services.cloudfront.model.AccessDeniedException;
+import com.amazonaws.services.cloudfront.model.BatchTooLargeException;
+import com.amazonaws.services.cloudfront.model.CNAMEAlreadyExistsException;
+import com.amazonaws.services.cloudfront.model.CalculateBandwidthRequest;
+import com.amazonaws.services.cloudfront.model.CalculateBandwidthResult;
+import com.amazonaws.services.cloudfront.model.CloudFrontOriginAccessIdentityAlreadyExistsException;
+import com.amazonaws.services.cloudfront.model.CloudFrontOriginAccessIdentityInUseException;
+import com.amazonaws.services.cloudfront.model.CreateCloudFrontOriginAccessIdentityRequest;
+import com.amazonaws.services.cloudfront.model.CreateCloudFrontOriginAccessIdentityResult;
+import com.amazonaws.services.cloudfront.model.CreateDistributionRequest;
+import com.amazonaws.services.cloudfront.model.CreateDistributionResult;
+import com.amazonaws.services.cloudfront.model.CreateInvalidationRequest;
+import com.amazonaws.services.cloudfront.model.CreateInvalidationResult;
+import com.amazonaws.services.cloudfront.model.CreatePreloadRequest;
+import com.amazonaws.services.cloudfront.model.CreatePreloadResult;
+import com.amazonaws.services.cloudfront.model.CreateStreamingDistributionRequest;
+import com.amazonaws.services.cloudfront.model.CreateStreamingDistributionResult;
+import com.amazonaws.services.cloudfront.model.DeleteCloudFrontOriginAccessIdentityRequest;
+import com.amazonaws.services.cloudfront.model.DeleteDistributionRequest;
+import com.amazonaws.services.cloudfront.model.DeleteStreamingDistributionRequest;
+import com.amazonaws.services.cloudfront.model.DistributionAlreadyExistsException;
+import com.amazonaws.services.cloudfront.model.DistributionNotDisabledException;
+import com.amazonaws.services.cloudfront.model.GetCloudFrontOriginAccessIdentityConfigRequest;
+import com.amazonaws.services.cloudfront.model.GetCloudFrontOriginAccessIdentityConfigResult;
+import com.amazonaws.services.cloudfront.model.GetCloudFrontOriginAccessIdentityRequest;
+import com.amazonaws.services.cloudfront.model.GetCloudFrontOriginAccessIdentityResult;
+import com.amazonaws.services.cloudfront.model.GetDistributionConfigRequest;
+import com.amazonaws.services.cloudfront.model.GetDistributionConfigResult;
+import com.amazonaws.services.cloudfront.model.GetDistributionRequest;
+import com.amazonaws.services.cloudfront.model.GetDistributionResult;
+import com.amazonaws.services.cloudfront.model.GetInvalidationRequest;
+import com.amazonaws.services.cloudfront.model.GetInvalidationResult;
+import com.amazonaws.services.cloudfront.model.GetStreamingDistributionConfigRequest;
+import com.amazonaws.services.cloudfront.model.GetStreamingDistributionConfigResult;
+import com.amazonaws.services.cloudfront.model.GetStreamingDistributionRequest;
+import com.amazonaws.services.cloudfront.model.GetStreamingDistributionResult;
+import com.amazonaws.services.cloudfront.model.IllegalUpdateException;
+import com.amazonaws.services.cloudfront.model.InconsistentQuantitiesException;
+import com.amazonaws.services.cloudfront.model.InvalidArgumentException;
+import com.amazonaws.services.cloudfront.model.InvalidDefaultRootObjectException;
+import com.amazonaws.services.cloudfront.model.InvalidErrorCodeException;
+import com.amazonaws.services.cloudfront.model.InvalidForwardCookiesException;
+import com.amazonaws.services.cloudfront.model.InvalidGeoRestrictionParameterException;
+import com.amazonaws.services.cloudfront.model.InvalidHeadersForS3OriginException;
+import com.amazonaws.services.cloudfront.model.InvalidIfMatchVersionException;
+import com.amazonaws.services.cloudfront.model.InvalidLocationCodeException;
+import com.amazonaws.services.cloudfront.model.InvalidMinimumProtocolVersionException;
+import com.amazonaws.services.cloudfront.model.InvalidOriginAccessIdentityException;
+import com.amazonaws.services.cloudfront.model.InvalidOriginException;
+import com.amazonaws.services.cloudfront.model.InvalidProtocolSettingsException;
+import com.amazonaws.services.cloudfront.model.InvalidRelativePathException;
+import com.amazonaws.services.cloudfront.model.InvalidRequiredProtocolException;
+import com.amazonaws.services.cloudfront.model.InvalidResponseCodeException;
+import com.amazonaws.services.cloudfront.model.InvalidTTLOrderException;
+import com.amazonaws.services.cloudfront.model.InvalidViewerCertificateException;
+import com.amazonaws.services.cloudfront.model.InvalidWebACLIdException;
+import com.amazonaws.services.cloudfront.model.ListCloudFrontOriginAccessIdentitiesRequest;
+import com.amazonaws.services.cloudfront.model.ListCloudFrontOriginAccessIdentitiesResult;
+import com.amazonaws.services.cloudfront.model.ListDistributionsByWebACLIdRequest;
+import com.amazonaws.services.cloudfront.model.ListDistributionsByWebACLIdResult;
+import com.amazonaws.services.cloudfront.model.ListDistributionsRequest;
+import com.amazonaws.services.cloudfront.model.ListDistributionsResult;
+import com.amazonaws.services.cloudfront.model.ListInvalidationsRequest;
+import com.amazonaws.services.cloudfront.model.ListInvalidationsResult;
+import com.amazonaws.services.cloudfront.model.ListStreamingDistributionsRequest;
+import com.amazonaws.services.cloudfront.model.ListStreamingDistributionsResult;
+import com.amazonaws.services.cloudfront.model.MissingBodyException;
+import com.amazonaws.services.cloudfront.model.NoSuchCloudFrontOriginAccessIdentityException;
+import com.amazonaws.services.cloudfront.model.NoSuchDistributionException;
+import com.amazonaws.services.cloudfront.model.NoSuchInvalidationException;
+import com.amazonaws.services.cloudfront.model.NoSuchOriginException;
+import com.amazonaws.services.cloudfront.model.NoSuchStreamingDistributionException;
+import com.amazonaws.services.cloudfront.model.PreconditionFailedException;
+import com.amazonaws.services.cloudfront.model.QuotaRequest;
+import com.amazonaws.services.cloudfront.model.QuotaResult;
+import com.amazonaws.services.cloudfront.model.StreamingDistributionAlreadyExistsException;
+import com.amazonaws.services.cloudfront.model.StreamingDistributionNotDisabledException;
+import com.amazonaws.services.cloudfront.model.TooManyCacheBehaviorsException;
+import com.amazonaws.services.cloudfront.model.TooManyCertificatesException;
+import com.amazonaws.services.cloudfront.model.TooManyCloudFrontOriginAccessIdentitiesException;
+import com.amazonaws.services.cloudfront.model.TooManyCookieNamesInWhiteListException;
+import com.amazonaws.services.cloudfront.model.TooManyDistributionCNAMEsException;
+import com.amazonaws.services.cloudfront.model.TooManyDistributionsException;
+import com.amazonaws.services.cloudfront.model.TooManyHeadersInForwardedValuesException;
+import com.amazonaws.services.cloudfront.model.TooManyInvalidationsInProgressException;
+import com.amazonaws.services.cloudfront.model.TooManyOriginsException;
+import com.amazonaws.services.cloudfront.model.TooManyStreamingDistributionCNAMEsException;
+import com.amazonaws.services.cloudfront.model.TooManyStreamingDistributionsException;
+import com.amazonaws.services.cloudfront.model.TooManyTrustedSignersException;
+import com.amazonaws.services.cloudfront.model.TrustedSignerDoesNotExistException;
+import com.amazonaws.services.cloudfront.model.UpdateCloudFrontOriginAccessIdentityRequest;
+import com.amazonaws.services.cloudfront.model.UpdateCloudFrontOriginAccessIdentityResult;
+import com.amazonaws.services.cloudfront.model.UpdateDistributionRequest;
+import com.amazonaws.services.cloudfront.model.UpdateDistributionResult;
+import com.amazonaws.services.cloudfront.model.UpdateStreamingDistributionRequest;
+import com.amazonaws.services.cloudfront.model.UpdateStreamingDistributionResult;
+import com.amazonaws.services.cloudfront.model.transform.AccessDeniedExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.BatchTooLargeExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CNAMEAlreadyExistsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CalculateBandwidthRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CalculateBandwidthResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CloudFrontOriginAccessIdentityAlreadyExistsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CloudFrontOriginAccessIdentityInUseExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreateCloudFrontOriginAccessIdentityRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreateCloudFrontOriginAccessIdentityResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreateDistributionRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreateDistributionResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreateInvalidationRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreateInvalidationResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreatePreloadRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreatePreloadResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreateStreamingDistributionRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.CreateStreamingDistributionResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.DeleteCloudFrontOriginAccessIdentityRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.DeleteDistributionRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.DeleteStreamingDistributionRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.DistributionAlreadyExistsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.DistributionNotDisabledExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetCloudFrontOriginAccessIdentityConfigRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetCloudFrontOriginAccessIdentityConfigResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetCloudFrontOriginAccessIdentityRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetCloudFrontOriginAccessIdentityResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetDistributionConfigRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetDistributionConfigResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetDistributionRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetDistributionResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetInvalidationRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetInvalidationResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetStreamingDistributionConfigRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetStreamingDistributionConfigResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetStreamingDistributionRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.GetStreamingDistributionResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.IllegalUpdateExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InconsistentQuantitiesExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidArgumentExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidDefaultRootObjectExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidErrorCodeExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidForwardCookiesExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidGeoRestrictionParameterExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidHeadersForS3OriginExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidIfMatchVersionExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidLocationCodeExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidMinimumProtocolVersionExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidOriginAccessIdentityExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidOriginExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidProtocolSettingsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidRelativePathExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidRequiredProtocolExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidResponseCodeExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidTTLOrderExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidViewerCertificateExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.InvalidWebACLIdExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListCloudFrontOriginAccessIdentitiesRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListCloudFrontOriginAccessIdentitiesResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListDistributionsByWebACLIdRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListDistributionsByWebACLIdResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListDistributionsRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListDistributionsResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListInvalidationsRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListInvalidationsResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListStreamingDistributionsRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.ListStreamingDistributionsResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.MissingBodyExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.NoSuchCloudFrontOriginAccessIdentityExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.NoSuchDistributionExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.NoSuchInvalidationExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.NoSuchOriginExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.NoSuchStreamingDistributionExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.PreconditionFailedExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.QuotaConfigRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.QuotaResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.QuotaUsageRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.StreamingDistributionAlreadyExistsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.StreamingDistributionNotDisabledExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyCacheBehaviorsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyCertificatesExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyCloudFrontOriginAccessIdentitiesExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyCookieNamesInWhiteListExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyDistributionCNAMEsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyDistributionsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyHeadersInForwardedValuesExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyInvalidationsInProgressExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyOriginsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyStreamingDistributionCNAMEsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyStreamingDistributionsExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TooManyTrustedSignersExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.TrustedSignerDoesNotExistExceptionUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.UpdateCloudFrontOriginAccessIdentityRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.UpdateCloudFrontOriginAccessIdentityResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.UpdateDistributionRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.UpdateDistributionResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.UpdateStreamingDistributionRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.UpdateStreamingDistributionResultStaxUnmarshaller;
+import com.amazonaws.transform.StandardErrorUnmarshaller;
+import com.amazonaws.transform.StaxUnmarshallerContext;
+import com.amazonaws.transform.Unmarshaller;
+import com.amazonaws.util.AWSRequestMetrics;
 import com.amazonaws.util.AWSRequestMetrics.Field;
-
-import com.amazonaws.services.cloudfront.model.*;
-import com.amazonaws.services.cloudfront.model.transform.*;
 
 /**
  * Client for accessing AmazonCloudFront.  All service calls made
@@ -1475,6 +1676,84 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
             
             endClientExecution(awsRequestMetrics, request, response);
         }
+    }
+    
+    /**
+     * 查询限额的值
+     * @param quotaRequest
+     * @return
+     */
+    public QuotaResult getQuotaConfig() {
+    	QuotaRequest quotaRequest = new QuotaRequest();
+    	return getQuotaConfig(quotaRequest);
+    }
+    
+    /**
+     * 查询限额的值
+     * @param quotaRequest
+     * @return
+     */
+    public QuotaResult getQuotaConfig(QuotaRequest quotaRequest) {
+    	ExecutionContext executionContext = createExecutionContext(quotaRequest);
+    	AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+    	awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+    	Request<QuotaRequest> request = null;
+    	Response<QuotaResult> response = null;
+    	
+    	try {
+    		awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+    		try {
+    			request = new QuotaConfigRequestMarshaller().marshall(super.beforeMarshalling(quotaRequest));
+    			// Binds the request metrics to the current request.
+    			request.setAWSRequestMetrics(awsRequestMetrics);
+    		} finally {
+    			awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+    		}
+    		
+    		response = invoke(request, new QuotaResultStaxUnmarshaller(), executionContext);
+    		return response.getAwsResponse();
+    	} finally {
+    		
+    		endClientExecution(awsRequestMetrics, request, response);
+    	}
+    }
+    
+    /**
+     * 查询用户当天已经使用的配额
+     * @return
+     */
+    public QuotaResult getQuotaUsage() {
+    	QuotaRequest quotaRequest = new QuotaRequest();
+    	return getQuotaUsage(quotaRequest);
+    }
+    
+    /**
+     * 查询用户当天已经使用的配额
+     * @return
+     */
+    public QuotaResult getQuotaUsage(QuotaRequest quotaRequest) {
+    	ExecutionContext executionContext = createExecutionContext(quotaRequest);
+    	AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+    	awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+    	Request<QuotaRequest> request = null;
+    	Response<QuotaResult> response = null;
+    	
+    	try {
+    		awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+    		try {
+    			request = new QuotaUsageRequestMarshaller().marshall(super.beforeMarshalling(quotaRequest));
+    			// Binds the request metrics to the current request.
+    			request.setAWSRequestMetrics(awsRequestMetrics);
+    		} finally {
+    			awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+    		}
+    		
+    		response = invoke(request, new QuotaResultStaxUnmarshaller(), executionContext);
+    		return response.getAwsResponse();
+    	} finally {
+    		
+    		endClientExecution(awsRequestMetrics, request, response);
+    	}
     }
     
     /**
