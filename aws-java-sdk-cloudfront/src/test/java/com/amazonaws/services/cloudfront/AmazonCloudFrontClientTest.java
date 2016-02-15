@@ -290,6 +290,38 @@ public class AmazonCloudFrontClientTest {
 
     }
 
+    @Test
+    public void testListPreload() throws UnsupportedEncodingException {
+        String domain = "dxz02.test.ksyun.8686c.com";
+        String distribution = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
+        System.out.println("distribution: " + distribution);
+
+        ListPreloadsRequest request = new ListPreloadsRequest(distribution);
+
+        ListPreloadsResult result = client.listPreloads(request);
+        System.out.println(result.toString());
+
+    }
+
+    @Test
+    public void testGetPreload() throws UnsupportedEncodingException {
+        // 1. 刷新的域名
+        String domain = "dxz02.test.ksyun.8686c.com";
+        String distribution = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
+        System.out.println("distribution: " + distribution);
+
+        // 2. id
+        String requestId = "3e4b2257-a755-4240-8591-c338d1ab98a7";
+
+        // 3. 创建一个获取刷新结果的请求
+        GetPreloadRequest request = new GetPreloadRequest(distribution, requestId);
+
+        // 4. 发送请求
+        GetPreloadResult result = client.getPreload(request);
+        System.out.println(result.toString());
+
+    }
+
     /**
      @Test public void testDeleteCloudFrontOriginAccessIdentity() {
 
