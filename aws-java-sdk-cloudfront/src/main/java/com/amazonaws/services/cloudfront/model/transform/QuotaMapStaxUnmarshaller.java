@@ -15,9 +15,12 @@
 
 package com.amazonaws.services.cloudfront.model.transform;
 
+import java.util.HashMap;
+
 import javax.xml.stream.events.XMLEvent;
 
 import com.amazonaws.services.cloudfront.model.Quota;
+import com.amazonaws.transform.MapEntry;
 import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.LongStaxUnmarshaller;
 import com.amazonaws.transform.StaxUnmarshallerContext;
 import com.amazonaws.transform.Unmarshaller;
@@ -25,9 +28,12 @@ import com.amazonaws.transform.Unmarshaller;
 /**
  * Quota StAX Unmarshaller
  */
-public class QuotaStaxUnmarshaller implements Unmarshaller<Quota, StaxUnmarshallerContext> {
+public class QuotaMapStaxUnmarshaller implements Unmarshaller<HashMap<String, Long>, StaxUnmarshallerContext> {
 
-    public Quota unmarshall(StaxUnmarshallerContext context) throws Exception {
+    public HashMap<String, Long> unmarshall(StaxUnmarshallerContext context) throws Exception {
+    	
+    	HashMap<String, Long> map = new HashMap<String, Long>();
+    	
     	Quota quota = new Quota();
         int originalDepth = context.getCurrentDepth();
         int targetDepth = originalDepth + 1;
@@ -35,24 +41,25 @@ public class QuotaStaxUnmarshaller implements Unmarshaller<Quota, StaxUnmarshall
 
         while (true) {
             XMLEvent xmlEvent = context.nextEvent();
-            if (xmlEvent.isEndDocument()) return quota;
+            if (xmlEvent.isEndDocument()) return map;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
-                if(context.testExpression("Detail", targetDepth)){
-                	quota.setDetail(QuotaMapStaxUnmarshaller.getInstance().unmarshall(context));
+                if (context.testExpression("entry", targetDepth)) {
+                	MapEntry<String, Long> entry = MapEntryStaxUnmarshaller.getInstance().unmarshall(context);
+                	map.put(entry.getKey(), entry.getValue());
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
-                    return quota;
+                    return map;
                 }
             }
         }
     }
 
-    private static QuotaStaxUnmarshaller instance;
-    public static QuotaStaxUnmarshaller getInstance() {
-        if (instance == null) instance = new QuotaStaxUnmarshaller();
+    private static QuotaMapStaxUnmarshaller instance;
+    public static QuotaMapStaxUnmarshaller getInstance() {
+        if (instance == null) instance = new QuotaMapStaxUnmarshaller();
         return instance;
     }
 }

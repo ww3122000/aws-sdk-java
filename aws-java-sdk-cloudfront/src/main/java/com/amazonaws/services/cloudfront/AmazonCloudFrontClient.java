@@ -130,6 +130,7 @@ import com.amazonaws.services.cloudfront.model.UpdateCloudFrontOriginAccessIdent
 import com.amazonaws.services.cloudfront.model.UpdateCloudFrontOriginAccessIdentityResult;
 import com.amazonaws.services.cloudfront.model.UpdateDistributionRequest;
 import com.amazonaws.services.cloudfront.model.UpdateDistributionResult;
+import com.amazonaws.services.cloudfront.model.UpdateQuotaRequest;
 import com.amazonaws.services.cloudfront.model.UpdateStreamingDistributionRequest;
 import com.amazonaws.services.cloudfront.model.UpdateStreamingDistributionResult;
 import com.amazonaws.services.cloudfront.model.transform.AccessDeniedExceptionUnmarshaller;
@@ -227,6 +228,7 @@ import com.amazonaws.services.cloudfront.model.transform.UpdateCloudFrontOriginA
 import com.amazonaws.services.cloudfront.model.transform.UpdateCloudFrontOriginAccessIdentityResultStaxUnmarshaller;
 import com.amazonaws.services.cloudfront.model.transform.UpdateDistributionRequestMarshaller;
 import com.amazonaws.services.cloudfront.model.transform.UpdateDistributionResultStaxUnmarshaller;
+import com.amazonaws.services.cloudfront.model.transform.UpdateQuotaConfigRequestMarshaller;
 import com.amazonaws.services.cloudfront.model.transform.UpdateStreamingDistributionRequestMarshaller;
 import com.amazonaws.services.cloudfront.model.transform.UpdateStreamingDistributionResultStaxUnmarshaller;
 import com.amazonaws.transform.StandardErrorUnmarshaller;
@@ -1704,6 +1706,36 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
     		awsRequestMetrics.startEvent(Field.RequestMarshallTime);
     		try {
     			request = new QuotaConfigRequestMarshaller().marshall(super.beforeMarshalling(quotaRequest));
+    			// Binds the request metrics to the current request.
+    			request.setAWSRequestMetrics(awsRequestMetrics);
+    		} finally {
+    			awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+    		}
+    		
+    		response = invoke(request, new QuotaResultStaxUnmarshaller(), executionContext);
+    		return response.getAwsResponse();
+    	} finally {
+    		
+    		endClientExecution(awsRequestMetrics, request, response);
+    	}
+    }
+    
+    /**
+     * 设置用户限额的值
+     * @param quotaRequest
+     * @return
+     */
+    public QuotaResult updateQuotaConfig(UpdateQuotaRequest updateQuotaRequest) {
+    	ExecutionContext executionContext = createExecutionContext(updateQuotaRequest);
+    	AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+    	awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+    	Request<UpdateQuotaRequest> request = null;
+    	Response<QuotaResult> response = null;
+    	
+    	try {
+    		awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+    		try {
+    			request = new UpdateQuotaConfigRequestMarshaller().marshall(super.beforeMarshalling(updateQuotaRequest));
     			// Binds the request metrics to the current request.
     			request.setAWSRequestMetrics(awsRequestMetrics);
     		} finally {

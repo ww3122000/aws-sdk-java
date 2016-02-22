@@ -17,42 +17,49 @@ package com.amazonaws.services.cloudfront.model.transform;
 
 import javax.xml.stream.events.XMLEvent;
 
-import com.amazonaws.services.cloudfront.model.Quota;
+import com.amazonaws.transform.MapEntry;
 import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.LongStaxUnmarshaller;
+import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.StringStaxUnmarshaller;
 import com.amazonaws.transform.StaxUnmarshallerContext;
 import com.amazonaws.transform.Unmarshaller;
 
 /**
  * Quota StAX Unmarshaller
  */
-public class QuotaStaxUnmarshaller implements Unmarshaller<Quota, StaxUnmarshallerContext> {
+public class MapEntryStaxUnmarshaller implements Unmarshaller<MapEntry<String, Long>, StaxUnmarshallerContext> {
 
-    public Quota unmarshall(StaxUnmarshallerContext context) throws Exception {
-    	Quota quota = new Quota();
+    public MapEntry<String, Long> unmarshall(StaxUnmarshallerContext context) throws Exception {
+    	
+    	MapEntry<String, Long> entry = new MapEntry<String, Long>();
+    	
         int originalDepth = context.getCurrentDepth();
         int targetDepth = originalDepth + 1;
         if (context.isStartOfDocument()) targetDepth += 1;
 
         while (true) {
             XMLEvent xmlEvent = context.nextEvent();
-            if (xmlEvent.isEndDocument()) return quota;
+            if (xmlEvent.isEndDocument()) return entry;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
-                if(context.testExpression("Detail", targetDepth)){
-                	quota.setDetail(QuotaMapStaxUnmarshaller.getInstance().unmarshall(context));
+                if (context.testExpression("key", targetDepth)) {
+                	entry.setKey(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
+                }
+                if (context.testExpression("value", targetDepth)) {
+                	entry.setValue(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
                 }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
-                    return quota;
+                    return entry;
                 }
             }
         }
     }
 
-    private static QuotaStaxUnmarshaller instance;
-    public static QuotaStaxUnmarshaller getInstance() {
-        if (instance == null) instance = new QuotaStaxUnmarshaller();
+    private static MapEntryStaxUnmarshaller instance;
+    public static MapEntryStaxUnmarshaller getInstance() {
+        if (instance == null) instance = new MapEntryStaxUnmarshaller();
         return instance;
     }
 }
