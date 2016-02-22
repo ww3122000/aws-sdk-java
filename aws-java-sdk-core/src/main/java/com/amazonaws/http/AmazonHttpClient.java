@@ -820,6 +820,8 @@ public class AmazonHttpClient {
 
         try {
             execParams.apacheResponse = httpClient.execute(execParams.apacheRequest, httpContext);
+//            System.out.println("responseContent: " + IOUtils.toString(execParams.apacheResponse.getEntity().getContent()));
+            
             if ((execContext.getClientExecutionTrackerTask().isEnabled() || requestAbortTaskTracker.isEnabled())
                     && !responseHandler.needsConnectionLeftOpen()) {
                 execParams.apacheResponse.setEntity(new BufferedHttpEntity(execParams.apacheResponse.getEntity()));
@@ -852,6 +854,7 @@ public class AmazonHttpClient {
             HttpResponse httpResponse = createResponse(execParams.apacheRequest, request, execParams.apacheResponse);
             T response = handleResponse(request, responseHandler, execParams.apacheRequest, httpResponse,
                     execParams.apacheResponse, execContext, isHeaderReqIdAvail, requestHandlers);
+           
             return new Response<T>(response, httpResponse);
         }
         if (isTemporaryRedirect(execParams.apacheResponse)) {

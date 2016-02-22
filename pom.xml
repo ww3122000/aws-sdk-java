@@ -131,6 +131,19 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <!-- 配置远程发布到私服，mvn deploy -->
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Nexus Release Repository</name>
+			<url>http://scm.ks3.ksyun.com/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://scm.ks3.ksyun.com/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
   <build>
     <pluginManagement>
       <plugins>
