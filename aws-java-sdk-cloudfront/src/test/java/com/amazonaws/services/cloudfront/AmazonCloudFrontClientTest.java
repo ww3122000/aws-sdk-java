@@ -1,13 +1,40 @@
 package com.amazonaws.services.cloudfront;
 
+import java.io.UnsupportedEncodingException;
+
+import org.apache.commons.codec.binary.Base64;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.services.cloudfront.model.*;
-import org.apache.commons.codec.binary.Base64;
-import org.junit.*;
-
-import java.io.UnsupportedEncodingException;
+import com.amazonaws.services.cloudfront.model.AccetypeEnum;
+import com.amazonaws.services.cloudfront.model.BandwidthEnum;
+import com.amazonaws.services.cloudfront.model.BatchTooLargeException;
+import com.amazonaws.services.cloudfront.model.CalculateBandwidth;
+import com.amazonaws.services.cloudfront.model.CalculateBandwidthRequest;
+import com.amazonaws.services.cloudfront.model.CalculateBandwidthResult;
+import com.amazonaws.services.cloudfront.model.CreateInvalidationRequest;
+import com.amazonaws.services.cloudfront.model.CreateInvalidationResult;
+import com.amazonaws.services.cloudfront.model.CreatePreloadRequest;
+import com.amazonaws.services.cloudfront.model.CreatePreloadResult;
+import com.amazonaws.services.cloudfront.model.GetInvalidationRequest;
+import com.amazonaws.services.cloudfront.model.GetInvalidationResult;
+import com.amazonaws.services.cloudfront.model.GetPreloadRequest;
+import com.amazonaws.services.cloudfront.model.GetPreloadResult;
+import com.amazonaws.services.cloudfront.model.InvalidationBatch;
+import com.amazonaws.services.cloudfront.model.ListInvalidationsRequest;
+import com.amazonaws.services.cloudfront.model.ListInvalidationsResult;
+import com.amazonaws.services.cloudfront.model.ListPreloadsRequest;
+import com.amazonaws.services.cloudfront.model.ListPreloadsResult;
+import com.amazonaws.services.cloudfront.model.Paths;
+import com.amazonaws.services.cloudfront.model.PreloadBatch;
+import com.amazonaws.services.cloudfront.model.QuotaResult;
+import com.amazonaws.services.cloudfront.model.RegionEnum;
 
 public class AmazonCloudFrontClientTest {
 
@@ -228,7 +255,7 @@ public class AmazonCloudFrontClientTest {
         calculateBandwidth.setRegion(RegionEnum.all.getValue());
         calculateBandwidth.setStartTime("201512220000"); // 201512020000  开始时间
         calculateBandwidth.setEndTime("201601212038"); // 201512020010 结束时间
-        calculateBandwidth.setDomain("dl3.caohua.com"); //查询的域名 当域名不设置的时候以用户为维度
+        calculateBandwidth.setDomain("d1.kaopuyun.com"); //查询的域名 当域名不设置的时候以用户为维度
 
         //创建流量带宽请求
         CalculateBandwidthRequest request = new CalculateBandwidthRequest(distributionId, calculateBandwidth);

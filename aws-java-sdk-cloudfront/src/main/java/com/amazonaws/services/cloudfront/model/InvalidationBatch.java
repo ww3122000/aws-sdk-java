@@ -22,6 +22,8 @@ import java.io.Serializable;
  * </p>
  */
 public class InvalidationBatch implements Serializable, Cloneable {
+	
+	private String userId;
 
     /**
      * The path of the object to invalidate. The path is relative to the
@@ -257,8 +259,16 @@ public class InvalidationBatch implements Serializable, Cloneable {
         this.callerReference = callerReference;
         return this;
     }
+    
+    public String getUserId() {
+		return userId;
+	}
 
-    /**
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	/**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *

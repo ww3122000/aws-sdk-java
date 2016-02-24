@@ -103,11 +103,16 @@ public class CreatePreloadRequestMarshaller implements Marshaller<Request<Create
             XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2015-09-17/");
 
                     if (createPreloadRequest != null) {
-            PreloadBatch invalidationBatchInvalidationBatch = createPreloadRequest.getPreloadBatch();
-            if (invalidationBatchInvalidationBatch != null) {
+            PreloadBatch preloadBatch = createPreloadRequest.getPreloadBatch();
+            if (preloadBatch != null) {
                 xmlWriter.startElement("PreloadBatch");
-                if (invalidationBatchInvalidationBatch != null) {
-                    Paths pathsPaths = invalidationBatchInvalidationBatch.getPaths();
+                if (preloadBatch != null) {
+                	String userId = preloadBatch.getUserId();
+                	if(!StringUtils.isNullOrEmpty(userId)){
+                		xmlWriter.startElement("UserId").value(userId).endElement();
+                	}
+                	
+                    Paths pathsPaths = preloadBatch.getPaths();
                     if (pathsPaths != null) {
                         xmlWriter.startElement("Paths");
                         if (pathsPaths.getQuantity() != null) {
@@ -133,8 +138,8 @@ public class CreatePreloadRequestMarshaller implements Marshaller<Request<Create
                         xmlWriter.endElement();
                     }
                 }
-                if (invalidationBatchInvalidationBatch.getCallerReference() != null) {
-                    xmlWriter.startElement("CallerReference").value(invalidationBatchInvalidationBatch.getCallerReference()).endElement();
+                if (preloadBatch.getCallerReference() != null) {
+                    xmlWriter.startElement("CallerReference").value(preloadBatch.getCallerReference()).endElement();
                 }
                 xmlWriter.endElement();
             }

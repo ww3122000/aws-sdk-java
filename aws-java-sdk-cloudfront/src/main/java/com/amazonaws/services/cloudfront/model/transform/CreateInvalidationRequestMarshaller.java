@@ -103,11 +103,15 @@ public class CreateInvalidationRequestMarshaller implements Marshaller<Request<C
             XMLWriter xmlWriter = new XMLWriter(stringWriter, "http://cloudfront.amazonaws.com/doc/2015-09-17/");
 
                     if (createInvalidationRequest != null) {
-            InvalidationBatch invalidationBatchInvalidationBatch = createInvalidationRequest.getInvalidationBatch();
-            if (invalidationBatchInvalidationBatch != null) {
+            InvalidationBatch invalidationBatch = createInvalidationRequest.getInvalidationBatch();
+            if (invalidationBatch != null) {
                 xmlWriter.startElement("InvalidationBatch");
-                if (invalidationBatchInvalidationBatch != null) {
-                    Paths pathsPaths = invalidationBatchInvalidationBatch.getPaths();
+                if (invalidationBatch != null) {
+                	String userId = invalidationBatch.getUserId();
+                	if(!StringUtils.isNullOrEmpty(userId)){
+                		xmlWriter.startElement("UserId").value(userId).endElement();
+                	}
+                    Paths pathsPaths = invalidationBatch.getPaths();
                     if (pathsPaths != null) {
                         xmlWriter.startElement("Paths");
                         if (pathsPaths.getQuantity() != null) {
@@ -133,8 +137,8 @@ public class CreateInvalidationRequestMarshaller implements Marshaller<Request<C
                         xmlWriter.endElement();
                     }
                 }
-                if (invalidationBatchInvalidationBatch.getCallerReference() != null) {
-                    xmlWriter.startElement("CallerReference").value(invalidationBatchInvalidationBatch.getCallerReference()).endElement();
+                if (invalidationBatch.getCallerReference() != null) {
+                    xmlWriter.startElement("CallerReference").value(invalidationBatch.getCallerReference()).endElement();
                 }
                 xmlWriter.endElement();
             }
