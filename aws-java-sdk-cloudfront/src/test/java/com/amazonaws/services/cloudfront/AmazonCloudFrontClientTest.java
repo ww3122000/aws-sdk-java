@@ -1,6 +1,7 @@
 package com.amazonaws.services.cloudfront;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Base64;
 import org.junit.After;
@@ -33,8 +34,12 @@ import com.amazonaws.services.cloudfront.model.ListPreloadsRequest;
 import com.amazonaws.services.cloudfront.model.ListPreloadsResult;
 import com.amazonaws.services.cloudfront.model.Paths;
 import com.amazonaws.services.cloudfront.model.PreloadBatch;
+import com.amazonaws.services.cloudfront.model.Quota;
+import com.amazonaws.services.cloudfront.model.QuotaNameEnum;
+import com.amazonaws.services.cloudfront.model.QuotaRequest;
 import com.amazonaws.services.cloudfront.model.QuotaResult;
 import com.amazonaws.services.cloudfront.model.RegionEnum;
+import com.amazonaws.services.cloudfront.model.UpdateQuotaRequest;
 
 public class AmazonCloudFrontClientTest {
 
@@ -265,26 +270,6 @@ public class AmazonCloudFrontClientTest {
         System.out.println(result.getCalculateBandwidth().getBandwidth());
     }
 
-    /**
-     * 查询每天可以使用的次数
-     */
-    @Test
-    public void testGetQuotaConfig() {
-
-        QuotaResult result = client.getQuotaConfig();
-        System.out.println(result.getQuota());
-    }
-
-    /**
-     * 查看使用次数
-     */
-    @Test
-    public void testGetQuotaUsage() {
-
-        QuotaResult result = client.getQuotaUsage();
-        System.out.println(result.getQuota());
-    }
-
     @Test
     public void testListInvalidation() throws UnsupportedEncodingException {
         String domain = "dxz02.test.ksyun.8686c.com";
@@ -347,6 +332,70 @@ public class AmazonCloudFrontClientTest {
         GetPreloadResult result = client.getPreload(request);
         System.out.println(result.toString());
 
+    }
+    
+    /**
+     * 更新每天可以使用的次数
+     */
+    @Test
+    public void testUpdateQuotaConfig() {
+    	HashMap<String, Long> map = new HashMap<String, Long>();
+    	
+    	map.put(QuotaNameEnum.list_preloads.getValue(), 133L);
+    	map.put(QuotaNameEnum.quota_config.getValue(), 134L);
+    	Quota quota = new Quota();
+    	quota.setDetail(map);
+    	
+    	UpdateQuotaRequest updateQuotaRequest = new UpdateQuotaRequest();
+    	updateQuotaRequest.setUserId("73400247");
+    	updateQuotaRequest.setQuota(quota);
+    	
+    	
+    	QuotaResult result = client.updateQuotaConfig(updateQuotaRequest);
+    	System.out.println(result.getQuota());
+    }
+    
+    /**
+     * 查询每天可以使用的次数
+     */
+    @Test
+    public void testGetQuotaConfig() {
+    	
+    	QuotaResult result = client.getQuotaConfig();
+    	System.out.println(result.getQuota());
+    }
+    
+    /**
+     * 查看使用次数
+     */
+    @Test
+    public void testGetQuotaUsage() {
+    	
+    	QuotaResult result = client.getQuotaUsage();
+    	System.out.println(result.getQuota());
+    }
+    
+    /**
+     * 查询每天可以使用的次数
+     */
+    @Test
+    public void testGetQuotaConfigSuper() {
+    	QuotaRequest quotaRequest = new QuotaRequest();
+    	quotaRequest.setUserId("73398729");
+    	QuotaResult result = client.getQuotaConfig(quotaRequest);
+    	System.out.println(result.getQuota());
+    }
+    
+    /**
+     * 查看使用次数
+     */
+    @Test
+    public void testGetQuotaUsageSuper() {
+    	QuotaRequest quotaRequest = new QuotaRequest();
+    	quotaRequest.setUserId("73398729");
+    	
+    	QuotaResult result = client.getQuotaUsage(quotaRequest);
+    	System.out.println(result.getQuota());
     }
 
     /**
