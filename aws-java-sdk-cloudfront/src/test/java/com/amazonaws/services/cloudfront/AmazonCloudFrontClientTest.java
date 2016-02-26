@@ -56,6 +56,7 @@ public class AmazonCloudFrontClientTest {
     @Before
     public void setUp() throws Exception {
         // 1. 设置ak sk
+//        final String accessKey = "wangwei-2";
         final String accessKey = "wangwei-1";
         final String secretKey = "wJalrXUtnFEMI";
 
@@ -66,8 +67,8 @@ public class AmazonCloudFrontClientTest {
         // 2. 设置 调用的地址
 //        client.setEndpoint("http://cdnapilocal.ksyun.com");
 //        client.setEndpoint("http://cdnapi.ksyun.com");
-        client.setEndpoint("http://localhost:8090");
-//      client.setEndpoint("http://10.4.2.37:18989");
+//        client.setEndpoint("http://localhost:8090");
+      client.setEndpoint("http://10.4.2.37:18989");
     }
 
     @After
@@ -84,7 +85,8 @@ public class AmazonCloudFrontClientTest {
     public void testCreateInvalidation() throws UnsupportedEncodingException {
         // 1. 刷新的域名
 //        String domain = "www.baidu.com";
-        String domain = "dl3.caohua.com";
+//        String domain = "dl3.caohua.com";
+        String domain = "dxz02.test.ksyun.8686c.com";
         String distributionId = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distributionId: " + distributionId);
 
@@ -199,7 +201,8 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testCreatePreload() throws UnsupportedEncodingException {
         // 1. 设置预加载的域名
-        String domain = "dl3.caohua.com";
+//        String domain = "dl3.caohua.com";
+        String domain = "dxz02.test.ksyun.8686c.com";
         String distributionId = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distributionId: " + distributionId);
 
@@ -230,14 +233,14 @@ public class AmazonCloudFrontClientTest {
         calculateBandwidth.setOutType("2");// 设置返回结果类型 1：自定义json 2：标准json 3：xml
 
         // 设置类型，如果域名为空则是用户维度，如果给出域名则以域名维度
-        calculateBandwidth.setType(BandwidthEnum.bandwidth.getValue());
+        calculateBandwidth.setType(BandwidthEnum.userTotalFlow.getValue());
         calculateBandwidth.setAccetype(AccetypeEnum.download.getValue());
         calculateBandwidth.setRegion(RegionEnum.all.getValue());
-        calculateBandwidth.setStartTime("201512220000"); // 201512020000  开始时间
-        calculateBandwidth.setEndTime("201601212038"); // 201512020010 结束时间
+        calculateBandwidth.setStartTime("201601300028"); // 201512020000  开始时间
+        calculateBandwidth.setEndTime("201601300048"); // 201512020010 结束时间
 //        calculateBandwidth.setDomain("static.feidieshuo.com"); //查询的域名——1
-//        calculateBandwidth.setDomain("dl3.caohua.com;dl7.caohua.com;api.agents.caohua.com"); //查询的域名
-        calculateBandwidth.setDomain("dl3.caohua.com"); //查询的域名 当域名不设置的时候以用户为维度
+//        calculateBandwidth.setDomain("dl3.caohua.com;dl7.caohua.com); //查询的域名
+//        calculateBandwidth.setDomain("dl3.caohua.com"); //查询的域名 当域名不设置的时候以用户为维度
 
         //创建流量带宽请求
         CalculateBandwidthRequest request = new CalculateBandwidthRequest(distributionId, calculateBandwidth);

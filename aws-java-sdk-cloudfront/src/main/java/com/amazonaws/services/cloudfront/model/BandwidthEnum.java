@@ -11,19 +11,34 @@ import java.util.Map;
 public enum BandwidthEnum {
     
     /**
-     * 1：带宽 
+     * 1：域名维度带宽 
      */
     bandwidth("bandwidth"),
     
     /**
-     * 2：带宽峰值
+     * 2：域名维度带宽峰值
      */
     bandwidthPeakValue("bandwidthPeakValue"),
     
     /**
-     * 3：流量总和
+     * 3：域名维度流量总和
      */
-    totalFlow("totalFlow");
+    totalFlow("totalFlow"),
+	
+	/**
+     * 4：用户维度的带宽
+     */
+    userBandwidth("userBandwidth"),
+    
+    /**
+     * 5：用户维度查询时间范围内带宽峰值
+     */
+    userBandwidthPeakValue("userBandwidthPeakValue"),
+    
+    /**
+     * 6：用户维度查询时间范围内流量总和
+     */
+    userTotalFlow("userTotalFlow");
     
     private String value;
 	

@@ -19,17 +19,9 @@ public enum AccetypeEnum {
      */
     livestream("livestream"),
     /**
-     * WSA加速
-     */
-    wsa("wsa"),
-    /**
      * 网页加速
      */
     web("web"),
-    /**
-     * 防攻击
-     */
-    wss("wss"),
     /**
      * 下载加速
      */
