@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Base64;
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,6 +20,7 @@ import com.amazonaws.services.cloudfront.model.BatchTooLargeException;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidth;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidthRequest;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidthResult;
+import com.amazonaws.services.cloudfront.model.ContentPathTypeEnum;
 import com.amazonaws.services.cloudfront.model.CreateInvalidationRequest;
 import com.amazonaws.services.cloudfront.model.CreateInvalidationResult;
 import com.amazonaws.services.cloudfront.model.CreatePreloadRequest;
@@ -28,6 +30,8 @@ import com.amazonaws.services.cloudfront.model.GetInvalidationResult;
 import com.amazonaws.services.cloudfront.model.GetPreloadRequest;
 import com.amazonaws.services.cloudfront.model.GetPreloadResult;
 import com.amazonaws.services.cloudfront.model.InvalidationBatch;
+import com.amazonaws.services.cloudfront.model.ListContentPathsRequest;
+import com.amazonaws.services.cloudfront.model.ListContentPathsResult;
 import com.amazonaws.services.cloudfront.model.ListInvalidationsRequest;
 import com.amazonaws.services.cloudfront.model.ListInvalidationsResult;
 import com.amazonaws.services.cloudfront.model.ListPreloadsRequest;
@@ -57,7 +61,7 @@ public class AmazonCloudFrontClientTest {
     public void setUp() throws Exception {
         // 1. 设置ak sk
 //        final String accessKey = "wangwei-2";
-        final String accessKey = "wangwei-1";
+        final String accessKey = "wangwei";
         final String secretKey = "wJalrXUtnFEMI";
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
@@ -67,8 +71,8 @@ public class AmazonCloudFrontClientTest {
         // 2. 设置 调用的地址
 //        client.setEndpoint("http://cdnapilocal.ksyun.com");
 //        client.setEndpoint("http://cdnapi.ksyun.com");
-//        client.setEndpoint("http://localhost:8090");
-      client.setEndpoint("http://10.4.2.37:18989");
+        client.setEndpoint("http://localhost:8090");
+//      client.setEndpoint("http://10.4.2.37:8989");
     }
 
     @After
@@ -233,13 +237,13 @@ public class AmazonCloudFrontClientTest {
         calculateBandwidth.setOutType("2");// 设置返回结果类型 1：自定义json 2：标准json 3：xml
 
         // 设置类型，如果域名为空则是用户维度，如果给出域名则以域名维度
-        calculateBandwidth.setType(BandwidthEnum.userTotalFlow.getValue());
+        calculateBandwidth.setType(BandwidthEnum.bandwidth.getValue());
         calculateBandwidth.setAccetype(AccetypeEnum.download.getValue());
         calculateBandwidth.setRegion(RegionEnum.all.getValue());
         calculateBandwidth.setStartTime("201601300028"); // 201512020000  开始时间
         calculateBandwidth.setEndTime("201601300048"); // 201512020010 结束时间
 //        calculateBandwidth.setDomain("static.feidieshuo.com"); //查询的域名——1
-//        calculateBandwidth.setDomain("dl3.caohua.com;dl7.caohua.com); //查询的域名
+        calculateBandwidth.setDomain("dl3.caohua.com;dl7.caohua.com"); //查询的域名
 //        calculateBandwidth.setDomain("dl3.caohua.com"); //查询的域名 当域名不设置的时候以用户为维度
 
         //创建流量带宽请求
@@ -399,6 +403,27 @@ public class AmazonCloudFrontClientTest {
     	
     	QuotaResult result = client.getQuotaUsage(quotaRequest);
     	System.out.println(result.getQuota());
+    }
+    
+    /**
+     * 模糊查询
+     */
+    @Test
+    public void testListContentPaths() {
+    	
+        DateTime startTime = new DateTime();
+        startTime = startTime.minusDays(100);
+        
+    	ListContentPathsRequest request = new ListContentPathsRequest();
+    	request.setUserId(73400332L);
+    	request.setQueryName("wangwei");
+    	request.setType(ContentPathTypeEnum.REFRESH_DIR);
+    	request.setStartTimeMillis(startTime.getMillis());
+    	request.setEndTimeMillis(System.currentTimeMillis());
+    	request.setPageIndex(0);
+    	request.setPageSize(10);
+    	ListContentPathsResult result = client.listContentPaths(request);
+    	System.out.println(result.getListContentPaths());
     }
 
     /**

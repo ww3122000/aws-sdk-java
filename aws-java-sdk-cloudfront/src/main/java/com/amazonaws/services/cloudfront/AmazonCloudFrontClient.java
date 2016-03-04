@@ -1431,6 +1431,34 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
+    
+    /**
+     * 模糊查询刷新预加载数据
+     * @param listInvalidationsRequest
+     * @return
+     */
+    public ListContentPathsResult listContentPaths(ListContentPathsRequest listInvalidationsRequest) {
+    	ExecutionContext executionContext = createExecutionContext(listInvalidationsRequest);
+    	AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+    	awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+    	Request<ListContentPathsRequest> request = null;
+    	Response<ListContentPathsResult> response = null;
+    	
+    	try {
+    		awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+    		try {
+    			request = new ListContentPathsRequestMarshaller().marshall(super.beforeMarshalling(listInvalidationsRequest));
+    			// Binds the request metrics to the current request.
+    			request.setAWSRequestMetrics(awsRequestMetrics);
+    		} finally {
+    			awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+    		}
+    		response = invoke(request, new ListContentPathsResultStaxUnmarshaller(), executionContext);
+    		return response.getAwsResponse();
+    	} finally {
+    		endClientExecution(awsRequestMetrics, request, response);
+    	}
+    }
 
     /**
      * <p>
