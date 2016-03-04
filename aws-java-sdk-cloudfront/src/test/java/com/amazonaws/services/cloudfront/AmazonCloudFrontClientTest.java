@@ -1,6 +1,8 @@
 package com.amazonaws.services.cloudfront;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Base64;
@@ -71,8 +73,9 @@ public class AmazonCloudFrontClientTest {
         // 2. 设置 调用的地址
 //        client.setEndpoint("http://cdnapilocal.ksyun.com");
 //        client.setEndpoint("http://cdnapi.ksyun.com");
-        client.setEndpoint("http://localhost:8090");
+//        client.setEndpoint("http://localhost:8090");
 //      client.setEndpoint("http://10.4.2.37:8989");
+      client.setEndpoint("http://10.4.2.37:8990");
     }
 
     @After
@@ -411,16 +414,15 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testListContentPaths() {
     	
-        DateTime startTime = new DateTime();
-        startTime = startTime.minusDays(100);
-        
+    	Calendar ca = Calendar.getInstance();
+    	ca.add(Calendar.DAY_OF_YEAR, -100);
     	ListContentPathsRequest request = new ListContentPathsRequest();
     	request.setUserId(73400332L);
     	request.setQueryName("wangwei");
     	request.setType(ContentPathTypeEnum.REFRESH_DIR);
-    	request.setStartTimeMillis(startTime.getMillis());
-    	request.setEndTimeMillis(System.currentTimeMillis());
-    	request.setPageIndex(0);
+    	request.setStartTime(ca.getTime());
+    	request.setEndTime(new Date(System.currentTimeMillis()));
+    	request.setPageIndex(1);
     	request.setPageSize(10);
     	ListContentPathsResult result = client.listContentPaths(request);
     	System.out.println(result.getListContentPaths());

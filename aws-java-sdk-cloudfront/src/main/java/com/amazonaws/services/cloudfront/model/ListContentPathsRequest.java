@@ -1,6 +1,7 @@
 package com.amazonaws.services.cloudfront.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,21 +28,39 @@ public class ListContentPathsRequest extends AmazonWebServiceRequest implements 
     @XmlElement(name = "UserId")
     private Long userId;
     
+    /**
+     * 查询的参数
+     */
     @XmlElement(name = "QueryName")
     private String queryName;
     
+    /**
+     * 路径类型：文件刷新、目录刷新、文件预热
+     */
     @XmlElement(name = "Type")
     private ContentPathTypeEnum type;
     
-    @XmlElement(name = "StartTimeMillis")
-    private Long startTimeMillis;
+    /**
+     * 开始时间
+     */
+    @XmlElement(name = "StartTime")
+    private Date startTime;
     
-    @XmlElement(name = "EndTimeMillis")
-    private Long endTimeMillis;
+    /**
+     * 结束时间
+     */
+    @XmlElement(name = "EndTime")
+    private Date endTime;
     
+    /**
+     * 第几页，从0开始的页数
+     */
     @XmlElement(name = "PageIndex")
     private Integer pageIndex;
     
+    /**
+     * 页大小
+     */
     @XmlElement(name = "PageSize")
     private Integer pageSize;
     
@@ -218,23 +237,7 @@ public class ListContentPathsRequest extends AmazonWebServiceRequest implements 
 	public void setType(ContentPathTypeEnum type) {
 		this.type = type;
 	}
-
-	public Long getStartTimeMillis() {
-		return startTimeMillis;
-	}
-
-	public void setStartTimeMillis(Long startTimeMillis) {
-		this.startTimeMillis = startTimeMillis;
-	}
-
-	public Long getEndTimeMillis() {
-		return endTimeMillis;
-	}
-
-	public void setEndTimeMillis(Long endTimeMillis) {
-		this.endTimeMillis = endTimeMillis;
-	}
-
+	
 	public Integer getPageIndex() {
 		return pageIndex;
 	}
@@ -245,6 +248,22 @@ public class ListContentPathsRequest extends AmazonWebServiceRequest implements 
 
 	public Integer getPageSize() {
 		return pageSize;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 	public void setPageSize(Integer pageSize) {

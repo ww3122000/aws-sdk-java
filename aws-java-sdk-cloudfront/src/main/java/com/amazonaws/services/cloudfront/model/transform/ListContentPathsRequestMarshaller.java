@@ -113,24 +113,24 @@ public class ListContentPathsRequestMarshaller implements Marshaller<Request<Lis
         
         if (DYNAMIC_QUERY_PARAMS.containsKey("StartTime")) {
         	String name = DYNAMIC_QUERY_PARAMS.get("StartTime");
-        	String value = (listContentPathsRequest.getStartTimeMillis() == null) ? null : StringUtils.fromLong(listContentPathsRequest.getStartTimeMillis());
+        	String value = (listContentPathsRequest.getStartTime() == null) ? null : StringUtils.fromLong(listContentPathsRequest.getStartTime().getTime());
         	
         	if (!(value == null || value.isEmpty())) {
         		request.addParameter(name, value);
         	}
         } else {
-        	uriResourcePath = uriResourcePath.replace("{StartTime}", (listContentPathsRequest.getStartTimeMillis() == null) ? "" : StringUtils.fromLong(listContentPathsRequest.getStartTimeMillis())); 
+        	uriResourcePath = uriResourcePath.replace("{StartTime}", (listContentPathsRequest.getStartTime() == null) ? "" : StringUtils.fromLong(listContentPathsRequest.getStartTime().getTime())); 
         }
         
         if (DYNAMIC_QUERY_PARAMS.containsKey("EndTime")) {
         	String name = DYNAMIC_QUERY_PARAMS.get("EndTime");
-        	String value = (listContentPathsRequest.getEndTimeMillis() == null) ? null : StringUtils.fromLong(listContentPathsRequest.getEndTimeMillis());
+        	String value = (listContentPathsRequest.getEndTime() == null) ? null : StringUtils.fromLong(listContentPathsRequest.getEndTime().getTime());
         	
         	if (!(value == null || value.isEmpty())) {
         		request.addParameter(name, value);
         	}
         } else {
-        	uriResourcePath = uriResourcePath.replace("{EndTime}", (listContentPathsRequest.getEndTimeMillis() == null) ? "" : StringUtils.fromLong(listContentPathsRequest.getEndTimeMillis())); 
+        	uriResourcePath = uriResourcePath.replace("{EndTime}", (listContentPathsRequest.getEndTime() == null) ? "" : StringUtils.fromLong(listContentPathsRequest.getEndTime().getTime())); 
         }
         
         if (DYNAMIC_QUERY_PARAMS.containsKey("PageIndex")) {

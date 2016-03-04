@@ -1,6 +1,7 @@
 package com.amazonaws.services.cloudfront.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -27,21 +28,39 @@ public class ContentPathList extends AmazonWebServiceRequest implements Serializ
     @XmlElement(name = "UserId")
     private Long userId;
     
+    /**
+     * 查询的参数
+     */
     @XmlElement(name = "QueryName")
     private String queryName;
     
+    /**
+     * 路径类型：文件刷新、目录刷新、文件预热
+     */
     @XmlElement(name = "Type")
     private ContentPathTypeEnum type;
     
+    /**
+     * 开始时间
+     */
     @XmlElement(name = "StartTimeMillis")
-    private Long startTimeMillis;
+    private Date startTime;
     
+    /**
+     * 结束时间
+     */
     @XmlElement(name = "EndTimeMillis")
-    private Long endTimeMillis;
+    private Date endTime;
     
+    /**
+     * 第几页，从0开始的页数
+     */
     @XmlElement(name = "PageIndex")
     private Integer pageIndex;
     
+    /**
+     * 页大小
+     */
     @XmlElement(name = "PageSize")
     private Integer pageSize;
     
@@ -51,6 +70,12 @@ public class ContentPathList extends AmazonWebServiceRequest implements Serializ
 	 */
 	@XmlElement(name = "Quantity")
 	private Integer quantity;
+	
+	/**
+	 * 总个数
+	 */
+	@XmlElement(name = "Total")
+	private Long total;
 
 	/**
 	 * A complex type that contains one InvalidationSummary element for each
@@ -219,20 +244,20 @@ public class ContentPathList extends AmazonWebServiceRequest implements Serializ
 		this.type = type;
 	}
 
-	public Long getStartTimeMillis() {
-		return startTimeMillis;
+	public Date getStartTime() {
+		return startTime;
 	}
 
-	public void setStartTimeMillis(Long startTimeMillis) {
-		this.startTimeMillis = startTimeMillis;
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
 
-	public Long getEndTimeMillis() {
-		return endTimeMillis;
+	public Date getEndTime() {
+		return endTime;
 	}
 
-	public void setEndTimeMillis(Long endTimeMillis) {
-		this.endTimeMillis = endTimeMillis;
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 	public Integer getPageIndex() {
@@ -255,11 +280,18 @@ public class ContentPathList extends AmazonWebServiceRequest implements Serializ
 		this.items = items;
 	}
 
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+
 	@Override
 	public String toString() {
-		return "ContentPathList [userId=" + userId + ", queryName=" + queryName + ", type=" + type
-				+ ", startTimeMillis=" + startTimeMillis + ", endTimeMillis=" + endTimeMillis + ", pageIndex="
-				+ pageIndex + ", pageSize=" + pageSize + ", quantity=" + quantity + ", items=" + items + "]";
+		return "ContentPathList [userId=" + userId + ", queryName=" + queryName + ", type=" + type + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", pageIndex=" + pageIndex + ", pageSize=" + pageSize
+				+ ", quantity=" + quantity + ", total=" + total + ", items=" + items + "]";
 	}
-	
 }

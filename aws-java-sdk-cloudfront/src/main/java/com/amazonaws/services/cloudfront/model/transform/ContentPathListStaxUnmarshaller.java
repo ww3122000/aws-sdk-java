@@ -15,6 +15,8 @@
 
 package com.amazonaws.services.cloudfront.model.transform;
 
+import java.util.Date;
+
 import javax.xml.stream.events.XMLEvent;
 
 import com.amazonaws.services.cloudfront.model.ContentPathList;
@@ -54,11 +56,11 @@ public class ContentPathListStaxUnmarshaller implements Unmarshaller<ContentPath
                     continue;
                 }
                 if (context.testExpression("StartTimeMillis", targetDepth)) {
-                    contentPathList.setStartTimeMillis(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                    contentPathList.setStartTime(new Date(LongStaxUnmarshaller.getInstance().unmarshall(context)));
                     continue;
                 }
                 if (context.testExpression("EndTimeMillis", targetDepth)) {
-                	contentPathList.setEndTimeMillis(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	contentPathList.setEndTime(new Date(LongStaxUnmarshaller.getInstance().unmarshall(context)));
                 	continue;
                 }
                 if (context.testExpression("PageIndex", targetDepth)) {
@@ -72,6 +74,10 @@ public class ContentPathListStaxUnmarshaller implements Unmarshaller<ContentPath
                 if (context.testExpression("Quantity", targetDepth)) {
                     contentPathList.setQuantity(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
+                }
+                if (context.testExpression("Total", targetDepth)) {
+                	contentPathList.setTotal(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
                 }
                 if (context.testExpression("Items/ContentPath", targetDepth)) {
                     contentPathList.getItems().add(ContentPathStaxUnmarshaller.getInstance().unmarshall(context));

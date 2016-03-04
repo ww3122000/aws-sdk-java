@@ -3,6 +3,11 @@ package com.amazonaws.services.cloudfront.model;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 路径类型：文件刷新、目录刷新、文件预热
+ * @author wangwei
+ *
+ */
 public enum ContentPathTypeEnum {
     /** 文件刷新 */
 	REFRESH_FILE("refreshFile"),

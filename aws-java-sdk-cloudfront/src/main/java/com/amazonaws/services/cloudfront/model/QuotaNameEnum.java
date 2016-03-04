@@ -40,7 +40,10 @@ public enum QuotaNameEnum {
     quota_config("quota_config"),
     
     /** 流量带宽 */
-    bandwidth("bandwidth");
+    bandwidth("bandwidth"),
+    
+    /** 刷新预加载模糊查询 */
+    list_content_path("list_content_path");
     
     private static Map<String, QuotaNameEnum> map = new HashMap<String, QuotaNameEnum>();
     private static List<String> quotaNames = new ArrayList<String>();
