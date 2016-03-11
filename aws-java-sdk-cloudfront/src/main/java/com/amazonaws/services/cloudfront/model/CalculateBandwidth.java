@@ -71,6 +71,12 @@ public class CalculateBandwidth implements Serializable, Cloneable {
     /**  加速类型 *. */
     @XmlElement(name = "Accetype")
     private String accetype;
+    
+    /**  cdn类型 
+     * @see com.amazonaws.services.cloudfront.model.CdnTypeEnum
+     *  */
+    @XmlElement(name = "CdnType")
+    private String cdnType;
 
     /**
      * Gets the user's id.
@@ -234,12 +240,32 @@ public class CalculateBandwidth implements Serializable, Cloneable {
     public void setType(String type) {
         this.type = type;
     }
-    
-    @Override
-    public String toString() {
-        return "CalculateBandwidth [userId=" + userId + ", outType=" + outType + ", type=" + type + ", startTime=" + startTime + ", endTime=" + endTime + ", domain=" + domain + ", bandwidth="
-                + bandwidth + ", region=" + region + ", accetype=" + accetype + "]";
-    }
+
+	/**
+	 * Gets the cdn类型.
+	 *
+	 * @return the cdn类型
+	 */
+	public String getCdnType() {
+		return cdnType;
+	}
+
+	/**
+	 * Sets the cdn类型.
+	 *
+	 * @param cdnType
+	 *            the new cdn类型
+	 */
+	public void setCdnType(String cdnType) {
+		this.cdnType = cdnType;
+	}
+	
+	@Override
+	public String toString() {
+		return "CalculateBandwidth [userId=" + userId + ", type=" + type + ", outType=" + outType + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", domain=" + domain + ", bandwidth=" + bandwidth + ", region="
+				+ region + ", accetype=" + accetype + ", cdnType=" + cdnType + "]";
+	}
 
 	/* (non-Javadoc)
      * @see java.lang.Object#clone()

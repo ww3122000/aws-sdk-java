@@ -264,6 +264,7 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
                 "/com/amazonaws/services/cloudfront/request.handlers"));
         requestHandler2s.addAll(chainFactory.newRequestHandler2Chain(
                 "/com/amazonaws/services/cloudfront/request.handler2s"));
+    
     }
 
     /**
@@ -1752,6 +1753,35 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
             endClientExecution(awsRequestMetrics, request, response);
         }
     }
+    
+    /**
+     * 实时状态码命中率
+     * @param realTimeStatusCodeHitRateRequest
+     * @throws InvalidArgumentException
+     * @return
+     */
+    public RealTimeStatusCodeHitRateResult realTimeStatusCodeHitRate(RealTimeStatusCodeHitRateRequest realTimeStatusCodeHitRateRequest) {
+    	ExecutionContext executionContext = createExecutionContext(realTimeStatusCodeHitRateRequest);
+    	AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+    	awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+    	Request<RealTimeStatusCodeHitRateRequest> request = null;
+    	Response<RealTimeStatusCodeHitRateResult> response = null;
+    	
+    	try {
+    		awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+    		try {
+    			request = new RealTimeStatusCodeHitRateRequestMarshaller().marshall(super.beforeMarshalling(realTimeStatusCodeHitRateRequest));
+    			// Binds the request metrics to the current request.
+    			request.setAWSRequestMetrics(awsRequestMetrics);
+    		} finally {
+    			awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+    		}
+    		response = invoke(request, new RealTimeStatusCodeHitRateResultStaxUnmarshaller(), executionContext);
+    		return response.getAwsResponse();
+    	} finally {
+    		endClientExecution(awsRequestMetrics, request, response);
+    	}
+    }
 
     /**
      * Returns additional metadata for a previously executed successful, request, typically used for
@@ -1792,5 +1822,6 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
         DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
     }
+    
 }
         

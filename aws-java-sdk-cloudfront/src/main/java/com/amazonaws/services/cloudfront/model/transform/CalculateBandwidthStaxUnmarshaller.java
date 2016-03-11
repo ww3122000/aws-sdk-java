@@ -18,6 +18,7 @@ package com.amazonaws.services.cloudfront.model.transform;
 import javax.xml.stream.events.XMLEvent;
 
 import com.amazonaws.services.cloudfront.model.CalculateBandwidth;
+import com.amazonaws.services.cloudfront.model.CdnTypeEnum;
 import com.amazonaws.services.cloudfront.model.Preload;
 import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.DateStaxUnmarshaller;
 import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.StringStaxUnmarshaller;
@@ -76,6 +77,11 @@ public class CalculateBandwidthStaxUnmarshaller implements Unmarshaller<Calculat
                 	calculateBandwidth.setAccetype(StringStaxUnmarshaller.getInstance().unmarshall(context));
                 	continue;
                 }
+                if (context.testExpression("CdnType", targetDepth)) {
+                	calculateBandwidth.setCdnType(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
+                }
+                
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return calculateBandwidth;

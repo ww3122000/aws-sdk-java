@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.apache.commons.codec.binary.Base64;
-import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,6 +21,7 @@ import com.amazonaws.services.cloudfront.model.BatchTooLargeException;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidth;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidthRequest;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidthResult;
+import com.amazonaws.services.cloudfront.model.CdnTypeEnum;
 import com.amazonaws.services.cloudfront.model.ContentPathTypeEnum;
 import com.amazonaws.services.cloudfront.model.CreateInvalidationRequest;
 import com.amazonaws.services.cloudfront.model.CreateInvalidationResult;
@@ -44,8 +44,11 @@ import com.amazonaws.services.cloudfront.model.Quota;
 import com.amazonaws.services.cloudfront.model.QuotaNameEnum;
 import com.amazonaws.services.cloudfront.model.QuotaRequest;
 import com.amazonaws.services.cloudfront.model.QuotaResult;
+import com.amazonaws.services.cloudfront.model.RealTimeStatusCodeHitRateRequest;
+import com.amazonaws.services.cloudfront.model.RealTimeStatusCodeHitRateResult;
 import com.amazonaws.services.cloudfront.model.RegionEnum;
 import com.amazonaws.services.cloudfront.model.UpdateQuotaRequest;
+import com.amazonaws.services.cloudfront.model.statistics.RealTimeParam;
 
 public class AmazonCloudFrontClientTest {
 
@@ -62,8 +65,9 @@ public class AmazonCloudFrontClientTest {
     @Before
     public void setUp() throws Exception {
         // 1. 设置ak sk
+        final String accessKey = "wangwei-1";
 //        final String accessKey = "wangwei-2";
-        final String accessKey = "wangwei";
+//        final String accessKey = "wangwei";
         final String secretKey = "wJalrXUtnFEMI";
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
@@ -73,9 +77,9 @@ public class AmazonCloudFrontClientTest {
         // 2. 设置 调用的地址
 //        client.setEndpoint("http://cdnapilocal.ksyun.com");
 //        client.setEndpoint("http://cdnapi.ksyun.com");
-//        client.setEndpoint("http://localhost:8090");
+        client.setEndpoint("http://localhost:8090");
 //      client.setEndpoint("http://10.4.2.37:8989");
-      client.setEndpoint("http://10.4.2.37:8990");
+//      client.setEndpoint("http://10.4.2.37:8990");
     }
 
     @After
@@ -93,7 +97,8 @@ public class AmazonCloudFrontClientTest {
         // 1. 刷新的域名
 //        String domain = "www.baidu.com";
 //        String domain = "dl3.caohua.com";
-        String domain = "dxz02.test.ksyun.8686c.com";
+//        String domain = "dxz02.test.ksyun.8686c.com";
+        String domain = "dl3.caohua.com";
         String distributionId = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distributionId: " + distributionId);
 
@@ -208,8 +213,8 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testCreatePreload() throws UnsupportedEncodingException {
         // 1. 设置预加载的域名
-//        String domain = "dl3.caohua.com";
-        String domain = "dxz02.test.ksyun.8686c.com";
+        String domain = "dl3.caohua.com";
+//        String domain = "dxz02.test.ksyun.8686c.com";
         String distributionId = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distributionId: " + distributionId);
 
@@ -240,7 +245,7 @@ public class AmazonCloudFrontClientTest {
         calculateBandwidth.setOutType("2");// 设置返回结果类型 1：自定义json 2：标准json 3：xml
 
         // 设置类型，如果域名为空则是用户维度，如果给出域名则以域名维度
-        calculateBandwidth.setType(BandwidthEnum.bandwidth.getValue());
+        calculateBandwidth.setType(BandwidthEnum.bandwidthPeakValue.getValue());
         calculateBandwidth.setAccetype(AccetypeEnum.download.getValue());
         calculateBandwidth.setRegion(RegionEnum.all.getValue());
         calculateBandwidth.setStartTime("201601300028"); // 201512020000  开始时间
@@ -248,6 +253,8 @@ public class AmazonCloudFrontClientTest {
 //        calculateBandwidth.setDomain("static.feidieshuo.com"); //查询的域名——1
         calculateBandwidth.setDomain("dl3.caohua.com;dl7.caohua.com"); //查询的域名
 //        calculateBandwidth.setDomain("dl3.caohua.com"); //查询的域名 当域名不设置的时候以用户为维度
+        
+        calculateBandwidth.setCdnType(CdnTypeEnum.download.getValue());
 
         //创建流量带宽请求
         CalculateBandwidthRequest request = new CalculateBandwidthRequest(distributionId, calculateBandwidth);
@@ -259,7 +266,6 @@ public class AmazonCloudFrontClientTest {
 
     @Test
     public void testCalculateBandwidth2() {
-
         String distributionId = null;
         CalculateBandwidth calculateBandwidth = new CalculateBandwidth();
         calculateBandwidth.setOutType("2");// 设置返回结果类型 1：自定义json 2：标准json 3：xml
@@ -296,12 +302,12 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testGetInvalidation() throws UnsupportedEncodingException {
         // 1. 刷新的域名
-        String domain = "dxz02.test.ksyun.8686c.com";
+        String domain = "dl3.caohua.com";
         String distribution = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distribution: " + distribution);
 
         // 2. id
-        String requestId = "3e4b2257-a755-4240-8591-c338d1ab98a7";
+        String requestId = "14a203a9-41e6-4ad3-9f10-635456ffcee4";
 
         // 3. 创建一个获取刷新结果的请求
         GetInvalidationRequest request = new GetInvalidationRequest(distribution, requestId);
@@ -328,12 +334,12 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testGetPreload() throws UnsupportedEncodingException {
         // 1. 刷新的域名
-        String domain = "dxz02.test.ksyun.8686c.com";
+        String domain = "dl3.caohua.com";
         String distribution = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distribution: " + distribution);
 
         // 2. id
-        String requestId = "3e4b2257-a755-4240-8591-c338d1ab98a7";
+        String requestId = "87a25d78-3280-40f7-8dc7-abea9fda3c5e";
 
         // 3. 创建一个获取刷新结果的请求
         GetPreloadRequest request = new GetPreloadRequest(distribution, requestId);
@@ -345,19 +351,20 @@ public class AmazonCloudFrontClientTest {
     }
     
     /**
-     * 更新每天可以使用的次数
+     * 更新每天可以使用的次数<br>
+     * 管理员使用
      */
     @Test
     public void testUpdateQuotaConfig() {
     	HashMap<String, Long> map = new HashMap<String, Long>();
-    	
+    	// 把要使用的值放入 map
     	map.put(QuotaNameEnum.list_preloads.getValue(), 133L);
     	map.put(QuotaNameEnum.quota_config.getValue(), 134L);
     	Quota quota = new Quota();
     	quota.setDetail(map);
     	
     	UpdateQuotaRequest updateQuotaRequest = new UpdateQuotaRequest();
-    	updateQuotaRequest.setUserId("73400247");
+    	updateQuotaRequest.setUserId("73400247"); 
     	updateQuotaRequest.setQuota(quota);
     	
     	
@@ -366,7 +373,8 @@ public class AmazonCloudFrontClientTest {
     }
     
     /**
-     * 查询每天可以使用的次数
+     * 查询每天可以使用的配额数<br>
+     * 
      */
     @Test
     public void testGetQuotaConfig() {
@@ -376,7 +384,19 @@ public class AmazonCloudFrontClientTest {
     }
     
     /**
-     * 查看使用次数
+     * 查询用户每天可以使用的次数
+     */
+    @Test
+    public void testGetQuotaConfigSuper() {
+    	QuotaRequest quotaRequest = new QuotaRequest();
+    	quotaRequest.setUserId("73398729"); // 要查询的用户的 id
+    	QuotaResult result = client.getQuotaConfig(quotaRequest);
+    	System.out.println(result.getQuota());
+    }
+    
+    /**
+     * 查看用户的配额使用次数<br>
+     * 用户使用时什么参数都不需要传递
      */
     @Test
     public void testGetQuotaUsage() {
@@ -386,30 +406,19 @@ public class AmazonCloudFrontClientTest {
     }
     
     /**
-     * 查询每天可以使用的次数
-     */
-    @Test
-    public void testGetQuotaConfigSuper() {
-    	QuotaRequest quotaRequest = new QuotaRequest();
-    	quotaRequest.setUserId("73398729");
-    	QuotaResult result = client.getQuotaConfig(quotaRequest);
-    	System.out.println(result.getQuota());
-    }
-    
-    /**
-     * 查看使用次数
+     * 查看用户的配额使用次数
      */
     @Test
     public void testGetQuotaUsageSuper() {
     	QuotaRequest quotaRequest = new QuotaRequest();
-    	quotaRequest.setUserId("73398729");
+    	quotaRequest.setUserId("73398729");	// 用户 id，可以不传
     	
     	QuotaResult result = client.getQuotaUsage(quotaRequest);
     	System.out.println(result.getQuota());
     }
     
     /**
-     * 模糊查询
+     * 刷新、预热查询接口
      */
     @Test
     public void testListContentPaths() {
@@ -417,15 +426,30 @@ public class AmazonCloudFrontClientTest {
     	Calendar ca = Calendar.getInstance();
     	ca.add(Calendar.DAY_OF_YEAR, -100);
     	ListContentPathsRequest request = new ListContentPathsRequest();
-    	request.setUserId(73400332L);
-    	request.setQueryName("wangwei");
-    	request.setType(ContentPathTypeEnum.REFRESH_DIR);
-    	request.setStartTime(ca.getTime());
-    	request.setEndTime(new Date(System.currentTimeMillis()));
-    	request.setPageIndex(1);
-    	request.setPageSize(10);
+//    	request.setUserId(73400332L);	// 用户 id
+    	request.setQueryName("wangwei");	// 模糊查询的内容，如果不输入则查询当前用户的
+    	request.setType(ContentPathTypeEnum.REFRESH_DIR); // 类型：文件刷新、目录刷新、文件预热
+    	request.setStartTime(ca.getTime());	// 开始时间
+    	request.setEndTime(new Date(System.currentTimeMillis()));	// 结束时间
+    	request.setPageIndex(1);	//	第几页  从0开始
+    	request.setPageSize(10);	// 页大小 默认100
     	ListContentPathsResult result = client.listContentPaths(request);
     	System.out.println(result.getListContentPaths());
+    }
+    
+    /**
+     * 实时状态码命中率查询
+     */
+    @Test
+    public void testRealTimeStatusCodeHitRate() {
+    	RealTimeParam param = new RealTimeParam(); // 实时状态码查询参数
+    	param.setUserId("73398729"); // 不传默认为当前用户
+    	param.setStartTime(new Date(System.currentTimeMillis() - 86400 * 1000)); // 昨天
+    	param.setEndTime(new Date()); // 今天，当前的时间
+    	param.setDomains("dl3.caohua.com");	 // 域名以分号分隔, 如果没有则为 all
+    	RealTimeStatusCodeHitRateRequest request = new RealTimeStatusCodeHitRateRequest(param);
+    	RealTimeStatusCodeHitRateResult result = client.realTimeStatusCodeHitRate(request);
+    	System.out.println(result.getRealTimeStatusCodeHitRate());
     }
 
     /**

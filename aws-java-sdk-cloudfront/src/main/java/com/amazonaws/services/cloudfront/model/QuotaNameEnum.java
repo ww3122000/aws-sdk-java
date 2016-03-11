@@ -43,7 +43,10 @@ public enum QuotaNameEnum {
     bandwidth("bandwidth"),
     
     /** 刷新预加载模糊查询 */
-    list_content_path("list_content_path");
+    list_content_path("list_content_path"),
+    
+    /** 实时状态命中率接口 */
+    real_time_status_code_hit_rate("real_time_status_code_hit_rate");
     
     private static Map<String, QuotaNameEnum> map = new HashMap<String, QuotaNameEnum>();
     private static List<String> quotaNames = new ArrayList<String>();

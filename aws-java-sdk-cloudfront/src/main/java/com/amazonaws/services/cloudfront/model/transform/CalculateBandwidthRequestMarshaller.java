@@ -28,6 +28,7 @@ import com.amazonaws.Request;
 import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidth;
 import com.amazonaws.services.cloudfront.model.CalculateBandwidthRequest;
+import com.amazonaws.services.cloudfront.model.CdnTypeEnum;
 import com.amazonaws.services.cloudfront.model.Paths;
 import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringInputStream;
@@ -144,6 +145,10 @@ public class CalculateBandwidthRequestMarshaller implements Marshaller<Request<C
                     String accetype = calculateBandwidth.getAccetype();
                     if (accetype != null) {
                     	xmlWriter.startElement("Accetype").value(accetype).endElement();
+                    }
+                    String cdnType = calculateBandwidth.getCdnType();
+                    if (cdnType != null) {
+                    	xmlWriter.startElement("CdnType").value(cdnType).endElement();
                     }
                 }
                 xmlWriter.endElement();
