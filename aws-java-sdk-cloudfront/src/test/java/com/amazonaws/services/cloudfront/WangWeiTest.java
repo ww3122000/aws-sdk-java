@@ -50,7 +50,7 @@ import com.amazonaws.services.cloudfront.model.RegionEnum;
 import com.amazonaws.services.cloudfront.model.UpdateQuotaRequest;
 import com.amazonaws.services.cloudfront.model.statistics.RealTimeParam;
 
-public class AmazonCloudFrontClientTest {
+public class WangWeiTest {
 
     private AmazonCloudFrontClient client;
 
@@ -65,9 +65,6 @@ public class AmazonCloudFrontClientTest {
     @Before
     public void setUp() throws Exception {
         // 1. 设置ak sk
-//        final String accessKey = "wangwei-3";
-//        final String accessKey = "wangwei-2";
-//    	final String accessKey = "wangwei-1";
         final String accessKey = "wangwei";
         final String secretKey = "wJalrXUtnFEMI";
 
@@ -96,10 +93,7 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testCreateInvalidation() throws UnsupportedEncodingException {
         // 1. 刷新的域名
-//        String domain = "www.baidu.com";
-//        String domain = "dl3.caohua.com";
-        String domain = "dxz02.test.ksyun.8686c.com";
-//        String domain = "dl3.caohua.com";
+        String domain = "dl3.caohua.com";
         String distributionId = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distributionId: " + distributionId);
 
@@ -117,7 +111,7 @@ public class AmazonCloudFrontClientTest {
         String callerReference = "10001";
 
         InvalidationBatch batch = new InvalidationBatch(paths, callerReference);
-        batch.setUserId("73400332");
+        batch.setUserId("73398729");
         // 5. 创建一个刷新的请求
         CreateInvalidationRequest request = new CreateInvalidationRequest(distributionId, batch);
         // 6. 发送刷新请求
@@ -215,8 +209,7 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testCreatePreload() throws UnsupportedEncodingException {
         // 1. 设置预加载的域名
-        String domain = "dxz02.test.ksyun.8686c.com";
-//        String domain = "dl3.caohua.com";
+        String domain = "dl3.caohua.com";
 //        String domain = "dxz02.test.ksyun.8686c.com";
         String distributionId = new String(Base64.encodeBase64(domain.getBytes("UTF-8")), "UTF-8");
         System.out.println("distributionId: " + distributionId);
@@ -231,7 +224,7 @@ public class AmazonCloudFrontClientTest {
         String callerReference = "10002";
 
         PreloadBatch batch = new PreloadBatch(paths, callerReference);
-        batch.setUserId("73400332");
+        batch.setUserId("73398729");
         // 3. 创建预加载的请求
         CreatePreloadRequest request = new CreatePreloadRequest(distributionId, batch);
         // 4. 发送预加载的请求
@@ -362,13 +355,15 @@ public class AmazonCloudFrontClientTest {
     public void testUpdateQuotaConfig() {
     	HashMap<String, Long> map = new HashMap<String, Long>();
     	// 把要使用的值放入 map
-    	map.put(QuotaNameEnum.list_preloads.getValue(), 133L);
-    	map.put(QuotaNameEnum.quota_config.getValue(), null);
+    	map.put(QuotaNameEnum.invalidation_file.getValue(), 100L);
+    	map.put(QuotaNameEnum.invalidation_dir.getValue(), 100L);
+    	map.put(QuotaNameEnum.preload.getValue(), 3L);
+    	map.put(QuotaNameEnum.quota_usage_amount.getValue(), 4L);
     	Quota quota = new Quota();
     	quota.setDetail(map);
     	
     	UpdateQuotaRequest updateQuotaRequest = new UpdateQuotaRequest();
-    	updateQuotaRequest.setUserId("73400247"); 
+    	updateQuotaRequest.setUserId("73398729"); 
     	updateQuotaRequest.setQuota(quota);
     	
     	
@@ -393,8 +388,7 @@ public class AmazonCloudFrontClientTest {
     @Test
     public void testGetQuotaConfigSuper() {
     	QuotaRequest quotaRequest = new QuotaRequest();
-//    	quotaRequest.setUserId("73398729"); // 要查询的用户的 id
-    	quotaRequest.setUserId("73400332"); // 要查询的用户的 id
+    	quotaRequest.setUserId("73398729"); // 要查询的用户的 id
     	QuotaResult result = client.getQuotaConfig(quotaRequest);
     	System.out.println(result.getQuota());
     }

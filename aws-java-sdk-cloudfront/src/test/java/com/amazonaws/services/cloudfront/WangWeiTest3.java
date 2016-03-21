@@ -50,7 +50,7 @@ import com.amazonaws.services.cloudfront.model.RegionEnum;
 import com.amazonaws.services.cloudfront.model.UpdateQuotaRequest;
 import com.amazonaws.services.cloudfront.model.statistics.RealTimeParam;
 
-public class AmazonCloudFrontClientTest {
+public class WangWeiTest3 {
 
     private AmazonCloudFrontClient client;
 

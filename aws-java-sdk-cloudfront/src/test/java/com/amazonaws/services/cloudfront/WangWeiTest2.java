@@ -50,7 +50,7 @@ import com.amazonaws.services.cloudfront.model.RegionEnum;
 import com.amazonaws.services.cloudfront.model.UpdateQuotaRequest;
 import com.amazonaws.services.cloudfront.model.statistics.RealTimeParam;
 
-public class AmazonCloudFrontClientTest {
+public class WangWeiTest2 {
 
     private AmazonCloudFrontClient client;
 
@@ -65,10 +65,7 @@ public class AmazonCloudFrontClientTest {
     @Before
     public void setUp() throws Exception {
         // 1. 设置ak sk
-//        final String accessKey = "wangwei-3";
-//        final String accessKey = "wangwei-2";
-//    	final String accessKey = "wangwei-1";
-        final String accessKey = "wangwei";
+        final String accessKey = "wangwei-2";
         final String secretKey = "wJalrXUtnFEMI";
 
         AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
