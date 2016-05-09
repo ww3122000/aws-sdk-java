@@ -77,6 +77,10 @@ public class CalculateBandwidth implements Serializable, Cloneable {
      *  */
     @XmlElement(name = "CdnType")
     private String cdnType;
+    
+    /** 视频文件的 url */
+    @XmlElement(name = "Urls")
+    private String urls;
 
     /**
      * Gets the user's id.
@@ -260,11 +264,30 @@ public class CalculateBandwidth implements Serializable, Cloneable {
 		this.cdnType = cdnType;
 	}
 	
+	/**
+	 * Gets the 视频文件的 url.
+	 *
+	 * @return the 视频文件的 url
+	 */
+	public String getUrls() {
+		return urls;
+	}
+
+	/**
+	 * Sets the 视频文件的 url.
+	 *
+	 * @param urls
+	 *            the new 视频文件的 url
+	 */
+	public void setUrls(String urls) {
+		this.urls = urls;
+	}
+
 	@Override
 	public String toString() {
 		return "CalculateBandwidth [userId=" + userId + ", type=" + type + ", outType=" + outType + ", startTime="
 				+ startTime + ", endTime=" + endTime + ", domain=" + domain + ", bandwidth=" + bandwidth + ", region="
-				+ region + ", accetype=" + accetype + ", cdnType=" + cdnType + "]";
+				+ region + ", accetype=" + accetype + ", cdnType=" + cdnType + ", urls=" + urls + "]";
 	}
 
 	/* (non-Javadoc)

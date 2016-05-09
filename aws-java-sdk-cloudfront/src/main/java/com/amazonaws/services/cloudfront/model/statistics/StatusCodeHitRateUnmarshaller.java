@@ -46,13 +46,25 @@ public class StatusCodeHitRateUnmarshaller implements Unmarshaller<StatusCodeHit
                     rate.setTotalCount(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("TotalFlow", targetDepth)) {
+                	rate.setTotalFlow(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
+                }
                 if (context.testExpression("TotalHit", targetDepth)) {
                     rate.setTotalHit(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("TotalHitFlow", targetDepth)) {
+                	rate.setTotalHitFlow(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
+                }
                 if (context.testExpression("TotalMiss", targetDepth)) {
                     rate.setTotalMiss(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
+                }
+                if (context.testExpression("TotalMissFlow", targetDepth)) {
+                	rate.setTotalMissFlow(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
                 }
                 if (context.testExpression("Detail/StatusCodeHitRateDetail", targetDepth)) {
                 	rate.getDetail().add(StatusCodeHitRateDetailStaxUnmarshaller.getInstance().unmarshall(context));

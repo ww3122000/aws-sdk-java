@@ -150,6 +150,11 @@ public class CalculateBandwidthRequestMarshaller implements Marshaller<Request<C
                     if (cdnType != null) {
                     	xmlWriter.startElement("CdnType").value(cdnType).endElement();
                     }
+                    
+                    String urls = calculateBandwidth.getUrls();
+                    if (urls != null) {
+                    	xmlWriter.startElement("Urls").value(urls).endElement();
+                    }
                 }
                 xmlWriter.endElement();
             }

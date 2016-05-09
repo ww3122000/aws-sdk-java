@@ -46,13 +46,25 @@ public class StatusCodeSatxUnmarshaller implements Unmarshaller<StatusCode, Stax
                     code.setCount(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("Flow", targetDepth)) {
+                	code.setFlow(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
+                }
                 if (context.testExpression("Hit", targetDepth)) {
                     code.setHit(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("HitFlow", targetDepth)) {
+                	code.setHitFlow(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
+                }
                 if (context.testExpression("Miss", targetDepth)) {
                     code.setMiss(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
+                }
+                if (context.testExpression("MissFlow", targetDepth)) {
+                	code.setMissFlow(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                	continue;
                 }
                 
             } else if (xmlEvent.isEndElement()) {

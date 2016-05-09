@@ -38,7 +38,18 @@ public enum BandwidthEnum {
     /**
      * 6：用户维度查询时间范围内流量总和
      */
-    userTotalFlow("userTotalFlow");
+    userTotalFlow("userTotalFlow"),
+    
+    /**
+     * 11：直播流流量
+     */
+    videoFlow("videoFlow"),
+    
+    /**
+     * 12：直播流访问数
+     */
+    videoClickPerMinute("videoClickPerMinute");
+	
     
     private String value;
 	
