@@ -73,6 +73,9 @@ public class QuotaUsageRequestMarshaller implements Marshaller<Request<QuotaRequ
 
         Request<QuotaRequest> request = new DefaultRequest<QuotaRequest>(quotaRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
+        request.addHeader("x-action", "GetQuotaUsageAmount");
+        request.addHeader("x-version", "2015-09-17");
+        
 
         String uriResourcePath = RESOURCE_PATH_TEMPLATE;
         

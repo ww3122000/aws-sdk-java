@@ -75,6 +75,8 @@ public class ListContentPathsRequestMarshaller implements Marshaller<Request<Lis
 
         Request<ListContentPathsRequest> request = new DefaultRequest<ListContentPathsRequest>(listContentPathsRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
+        request.addHeader("x-action", "ListInvalidationsByContentPath");
+        request.addHeader("x-version", "2015-09-17");
 
         String uriResourcePath = RESOURCE_PATH_TEMPLATE;
         

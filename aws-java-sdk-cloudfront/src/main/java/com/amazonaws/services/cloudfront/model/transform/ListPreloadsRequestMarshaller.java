@@ -79,6 +79,8 @@ public class ListPreloadsRequestMarshaller implements Marshaller<Request<ListPre
 
         Request<ListPreloadsRequest> request = new DefaultRequest<ListPreloadsRequest>(listPreloadsRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
+        request.addHeader("x-action", "ListPreloads");
+        request.addHeader("x-version", "2015-09-17");
 
         String uriResourcePath = RESOURCE_PATH_TEMPLATE;
 

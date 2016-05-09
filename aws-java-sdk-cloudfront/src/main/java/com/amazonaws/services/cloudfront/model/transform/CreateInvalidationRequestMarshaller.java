@@ -148,6 +148,8 @@ public class CreateInvalidationRequestMarshaller implements Marshaller<Request<C
                 request.setContent(new StringInputStream(stringWriter.getBuffer().toString()));
                 request.addHeader("Content-Length", Integer.toString(stringWriter.getBuffer().toString().getBytes(UTF8).length));
                 request.addHeader("Content-Type", "application/xml");
+                request.addHeader("x-action", "CreateInvalidation");
+                request.addHeader("x-version", "2015-09-17");
             } catch (UnsupportedEncodingException e) {
                 throw new AmazonClientException("Unable to marshall request to XML", e);
             }

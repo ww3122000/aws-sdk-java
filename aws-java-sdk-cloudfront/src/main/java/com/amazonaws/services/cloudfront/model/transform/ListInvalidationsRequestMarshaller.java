@@ -79,6 +79,8 @@ public class ListInvalidationsRequestMarshaller implements Marshaller<Request<Li
 
         Request<ListInvalidationsRequest> request = new DefaultRequest<ListInvalidationsRequest>(listInvalidationsRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.GET);
+        request.addHeader("x-action", "ListInvalidations");
+        request.addHeader("x-version", "2015-09-17");
 
         String uriResourcePath = RESOURCE_PATH_TEMPLATE;
         

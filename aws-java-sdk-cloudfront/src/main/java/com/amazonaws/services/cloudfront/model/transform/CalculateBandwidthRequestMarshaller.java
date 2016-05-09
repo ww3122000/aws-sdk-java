@@ -81,6 +81,8 @@ public class CalculateBandwidthRequestMarshaller implements Marshaller<Request<C
 
         Request<CalculateBandwidthRequest> request = new DefaultRequest<CalculateBandwidthRequest>(calculateBandwidthRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.POST);
+        request.addHeader("x-action", "GetBandwidth");
+        request.addHeader("x-version", "2015-09-17");
 
         String uriResourcePath = RESOURCE_PATH_TEMPLATE;
         

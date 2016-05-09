@@ -79,6 +79,8 @@ public class CreatePreloadRequestMarshaller implements Marshaller<Request<Create
 
         Request<CreatePreloadRequest> request = new DefaultRequest<CreatePreloadRequest>(createPreloadRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.POST);
+        request.addHeader("x-action", "CreatePreload");
+        request.addHeader("x-version", "2015-09-17");
 
         String uriResourcePath = RESOURCE_PATH_TEMPLATE;
         

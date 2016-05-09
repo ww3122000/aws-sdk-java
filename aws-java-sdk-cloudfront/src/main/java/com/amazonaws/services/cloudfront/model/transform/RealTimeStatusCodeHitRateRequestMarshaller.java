@@ -84,6 +84,8 @@ public class RealTimeStatusCodeHitRateRequestMarshaller
 		Request<RealTimeStatusCodeHitRateRequest> request = new DefaultRequest<RealTimeStatusCodeHitRateRequest>(
 				realTimeStatusCodeHitRateRequest, "AmazonCloudFront");
 		request.setHttpMethod(HttpMethodName.POST);
+		request.addHeader("x-action", "GetRealTimeStatusCodeHitRate");
+        request.addHeader("x-version", "2016-03-12");
 
 		String uriResourcePath = RESOURCE_PATH_TEMPLATE;
 

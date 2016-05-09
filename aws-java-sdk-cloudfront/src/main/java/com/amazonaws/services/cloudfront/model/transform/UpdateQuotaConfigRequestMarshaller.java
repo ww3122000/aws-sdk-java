@@ -79,6 +79,9 @@ public class UpdateQuotaConfigRequestMarshaller implements Marshaller<Request<Up
 
         Request<UpdateQuotaRequest> request = new DefaultRequest<UpdateQuotaRequest>(updateQuotaRequest, "AmazonCloudFront");
         request.setHttpMethod(HttpMethodName.PUT);
+        request.addHeader("x-action", "UpdateQuotaConfig");
+        request.addHeader("x-version", "2015-09-17");
+        
 
         String uriResourcePath = RESOURCE_PATH_TEMPLATE;
         

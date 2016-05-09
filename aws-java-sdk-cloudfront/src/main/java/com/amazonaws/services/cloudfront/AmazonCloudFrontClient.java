@@ -36,6 +36,7 @@ import com.amazonaws.http.ExecutionContext;
 import com.amazonaws.http.StaxResponseHandler;
 import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.metrics.RequestMetricCollector;
+import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.cloudfront.model.*;
 import com.amazonaws.services.cloudfront.model.transform.*;
 import com.amazonaws.transform.StandardErrorUnmarshaller;
@@ -257,7 +258,11 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller());
         
         // calling this.setEndPoint(...) will also modify the signer accordingly
-        this.setEndpoint("cloudfront.amazonaws.com/");
+        this.setEndpoint("http://cdn.api.ksyun.com");
+        
+        this.setSignerRegionOverride("cn-shanghai-1");
+        this.setServiceNameIntern("cdn");
+        this.setRegion(RegionUtils.getRegion("cn-shanghai-1"));
         
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
