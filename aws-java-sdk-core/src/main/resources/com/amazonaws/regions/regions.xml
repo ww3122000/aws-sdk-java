@@ -1,6 +1,16 @@
 <XML>
   <Regions>
     <Region>
+      <Name>cn-shanghai-1</Name>
+      <Endpoint>
+        <ServiceName>cdn</ServiceName>
+        <Http>true</Http>
+        <Https>false</Https>
+        <Hostname>cdn.api.ksyun.com</Hostname>
+      </Endpoint>
+      <Domain>cdn.api.ksyun.com</Domain>
+    </Region>
+    <Region>
       <Name>us-east-1</Name>
       <Endpoint>
         <ServiceName>cloudhsm</ServiceName>
@@ -2784,6 +2794,11 @@
       <RegionName>eu-west-1</RegionName>
       <RegionName>eu-central-1</RegionName>
       <RegionName>ap-northeast-2</RegionName>
+    </Service>
+    <Service>
+      <Name>cdn</Name>
+      <FullName>KS3 CloudFront</FullName>
+      <RegionName>cn-shanghai-1</RegionName>
     </Service>
     <Service>
       <Name>cloudsearch</Name>

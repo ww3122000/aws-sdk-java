@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.amazonaws</groupId>
 	<artifactId>ksc-java-sdk-cloudfront</artifactId>
-	<version>1.10.47.02</version>
+	<version>1.10.47.04</version>
 	<name>ksc Java SDK for Amazon CloudFront</name>
 	<description>The AWS Java SDK for Amazon CloudFront module holds the client classes that are used for communicating with Amazon CloudFront Service</description>
 	<url>https://aws.amazon.com/sdkforjava</url>
@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-core</artifactId>
-			<version>1.10.47</version>
+			<version>1.10.47-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
