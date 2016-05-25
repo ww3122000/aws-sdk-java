@@ -10,6 +10,7 @@
 	</parent>
 	<groupId>com.amazonaws</groupId>
 	<artifactId>ksc-aws-java-sdk-core</artifactId>
+	<version>1.10.47.04</version>
 	<name>AWS SDK for Java - Core</name>
 	<description>The AWS SDK for Java - Core module holds the classes that is used by the individual service clients to interact with Amazon Web Services. Users need to depend on aws-java-sdk artifact for accessing individual client classes.</description>
 	<url>https://aws.amazon.com/sdkforjava</url>
