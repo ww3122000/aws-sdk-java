@@ -32,7 +32,7 @@ public class ListLogSettingResult implements Serializable, Cloneable {
     private String location;
 
     
-    private RealTimeStatusCodeHitRate realTimeStatusCodeHitRate;
+    private ListLogPage ListLogPage;
 
     /**
      * The fully qualified URI of the distribution and invalidation batch
@@ -72,21 +72,21 @@ public class ListLogSettingResult implements Serializable, Cloneable {
         this.location = location;
         return this;
     }
-
-	public RealTimeStatusCodeHitRate getRealTimeStatusCodeHitRate() {
-		return realTimeStatusCodeHitRate;
+    
+    public ListLogPage getListLogPage() {
+		return ListLogPage;
 	}
 
-	public void setRealTimeStatusCodeHitRate(RealTimeStatusCodeHitRate realTimeStatusCodeHitRate) {
-		this.realTimeStatusCodeHitRate = realTimeStatusCodeHitRate;
+	public void setListLogPage(ListLogPage listLogPage) {
+		ListLogPage = listLogPage;
 	}
 
-    @Override
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((realTimeStatusCodeHitRate == null) ? 0 : realTimeStatusCodeHitRate.hashCode());
+		result = prime * result + ((ListLogPage == null) ? 0 : ListLogPage.hashCode());
 		return result;
 	}
 
@@ -104,18 +104,18 @@ public class ListLogSettingResult implements Serializable, Cloneable {
 				return false;
 		} else if (!location.equals(other.location))
 			return false;
-		if (realTimeStatusCodeHitRate == null) {
-			if (other.realTimeStatusCodeHitRate != null)
+		if (ListLogPage == null) {
+			if (other.ListLogPage != null)
 				return false;
-		} else if (!realTimeStatusCodeHitRate.equals(other.realTimeStatusCodeHitRate))
+		} else if (!ListLogPage.equals(other.ListLogPage))
 			return false;
 		return true;
 	}
 	
 	@Override
 	public String toString() {
-		return "RealTimeStatusCodeHitRateResult [location=" + location + ", realTimeStatusCodeHitRate="
-				+ realTimeStatusCodeHitRate + "]";
+		return "ListLogPage [location=" + location + ", ListLogPage="
+				+ ListLogPage + "]";
 	}
 
 	@Override

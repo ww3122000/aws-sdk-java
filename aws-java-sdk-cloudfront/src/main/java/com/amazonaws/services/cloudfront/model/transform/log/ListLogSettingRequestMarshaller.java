@@ -108,7 +108,7 @@ public class ListLogSettingRequestMarshaller
 			request.addParameter("status", listLogSettingRequest.getStatus().getValue().toString());
 		}
 		if(listLogSettingRequest.getType() != null){
-			request.addParameter("type", listLogSettingRequest.getType().getValue().toString());
+			request.addParameter("type", listLogSettingRequest.getType().getCode().toString());
 		}
 		if(!StringUtils.isNullOrEmpty(listLogSettingRequest.getDomain())){
 			request.addParameter("domain", listLogSettingRequest.getDomain());

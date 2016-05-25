@@ -39,16 +39,16 @@ public class ListLogSettingResultStaxUnmarshaller implements Unmarshaller<ListLo
             XMLEvent xmlEvent = context.nextEvent();
             if (xmlEvent.isEndDocument()) return listLogSettingResult;
 
-//            if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
-//                if (context.testExpression("RealTimeStatusCodeHitRate", targetDepth)) {
-//                    realTimeStatusCodeHitRateResult.setRealTimeStatusCodeHitRate(RealTimeStatusCodeHitRateStaxUnmarshaller.getInstance().unmarshall(context));
-//                    continue;
-//                }
-//            } else if (xmlEvent.isEndElement()) {
-//                if (context.getCurrentDepth() < originalDepth) {
-//                    return realTimeStatusCodeHitRateResult;
-//                }
-//            }
+            if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
+                if (context.testExpression("PageImpl", targetDepth)) {
+                	listLogSettingResult.setListLogPage(ListLogPageUnmarshallerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+            } else if (xmlEvent.isEndElement()) {
+                if (context.getCurrentDepth() < originalDepth) {
+                    return listLogSettingResult;
+                }
+            }
         }
     }
 
