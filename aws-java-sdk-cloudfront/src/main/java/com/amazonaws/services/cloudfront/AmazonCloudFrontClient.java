@@ -38,7 +38,11 @@ import com.amazonaws.internal.StaticCredentialsProvider;
 import com.amazonaws.metrics.RequestMetricCollector;
 import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.cloudfront.model.*;
+import com.amazonaws.services.cloudfront.model.log.ListLogSettingRequest;
+import com.amazonaws.services.cloudfront.model.log.ListLogSettingResult;
 import com.amazonaws.services.cloudfront.model.transform.*;
+import com.amazonaws.services.cloudfront.model.transform.log.ListLogSettingRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.log.ListLogSettingResultStaxUnmarshaller;
 import com.amazonaws.transform.StandardErrorUnmarshaller;
 import com.amazonaws.transform.StaxUnmarshallerContext;
 import com.amazonaws.transform.Unmarshaller;
@@ -1826,6 +1830,35 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
         StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(unmarshaller);
         DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+    
+    
+    /**
+     * 日志配置查询接口
+     * @param listLogSettingRequest
+     * @return
+     */
+    public ListLogSettingResult listLogSetting(ListLogSettingRequest listLogSettingRequest) {
+    	ExecutionContext executionContext = createExecutionContext(listLogSettingRequest);
+    	AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+    	awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+    	Request<ListLogSettingRequest> request = null;
+    	Response<ListLogSettingResult> response = null;
+    	
+    	try {
+    		awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+    		try {
+    			request = new ListLogSettingRequestMarshaller().marshall(super.beforeMarshalling(listLogSettingRequest));
+    			// Binds the request metrics to the current request.
+    			request.setAWSRequestMetrics(awsRequestMetrics);
+    		} finally {
+    			awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+    		}
+    		response = invoke(request, new ListLogSettingResultStaxUnmarshaller(), executionContext);
+    		return response.getAwsResponse();
+    	} finally {
+    		endClientExecution(awsRequestMetrics, request, response);
+    	}
     }
     
 }
