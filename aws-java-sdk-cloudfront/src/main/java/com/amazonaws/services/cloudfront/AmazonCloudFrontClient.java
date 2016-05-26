@@ -17,6 +17,10 @@ package com.amazonaws.services.cloudfront;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.cloudfront.model.log.GetLogRequest;
+import com.amazonaws.services.cloudfront.model.log.GetLogResult;
+import com.amazonaws.services.cloudfront.model.transform.log.GetLogRequestMarshaller;
+import com.amazonaws.services.cloudfront.model.transform.log.GetLogResultStaxUnmarshaller;
 import org.w3c.dom.Node;
 
 import com.amazonaws.AmazonClientException;
@@ -1854,11 +1858,39 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
     		} finally {
     			awsRequestMetrics.endEvent(Field.RequestMarshallTime);
     		}
-    		response = invoke(request, new ListLogSettingResultStaxUnmarshaller(), executionContext);
+            response = invoke(request, new ListLogSettingResultStaxUnmarshaller(), executionContext);
     		return response.getAwsResponse();
     	} finally {
     		endClientExecution(awsRequestMetrics, request, response);
     	}
+    }
+
+    /**
+     * 日志查询接口
+     * @param
+     * @return
+     */
+    public GetLogResult getLog(GetLogRequest getLogRequest) {
+        ExecutionContext executionContext = createExecutionContext(getLogRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetLogRequest> request = null;
+        Response<GetLogResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetLogRequestMarshaller().marshall(super.beforeMarshalling(getLogRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+            response = invoke(request, new GetLogResultStaxUnmarshaller(), executionContext);
+            return response.getAwsResponse();
+        } finally {
+            endClientExecution(awsRequestMetrics, request, response);
+        }
     }
     
 }
