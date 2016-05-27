@@ -44,6 +44,14 @@ public class CdnLogSettingStaxUnmarshaller implements Unmarshaller<CdnLogSetting
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
                 if (context.testExpression("id", targetDepth)) {
+                    setting.setId(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("userId", targetDepth)) {
+                    setting.setUserId(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("domainId", targetDepth)) {
                     setting.setDomainId(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
@@ -51,23 +59,33 @@ public class CdnLogSettingStaxUnmarshaller implements Unmarshaller<CdnLogSetting
                     setting.setDomain(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("bucket", targetDepth)) {
+                    setting.setBucket(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
                 if (context.testExpression("type", targetDepth)) {
                 	Integer type = IntegerStaxUnmarshaller.getInstance().unmarshall(context);
-                	AccetypeEnum accetypeEnum = AccetypeEnum.getByCode(type);
-                	setting.setType(accetypeEnum);
+                	setting.setType(AccetypeEnum.getByCode(type));
                 	continue;
                 }
-                if (context.testExpression("logSetting/granularity", targetDepth)) {
+                if (context.testExpression("granularity", targetDepth)) {
                 	Integer granularity = IntegerStaxUnmarshaller.getInstance().unmarshall(context);
                 	setting.setGranularity(GranularityEnum.getByValue(granularity));
                     continue;
                 }
-                if (context.testExpression("logSetting/status", targetDepth)) {
+                if (context.testExpression("status", targetDepth)) {
                 	Integer status = IntegerStaxUnmarshaller.getInstance().unmarshall(context);
                 	setting.setStatus(StatusEnum.getByValue(status));
                 	continue;
                 }
-                
+                if (context.testExpression("updateTime", targetDepth)) {
+                    setting.setUpdateTime(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("createTime", targetDepth)) {
+                    setting.setCreateTime(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return setting;

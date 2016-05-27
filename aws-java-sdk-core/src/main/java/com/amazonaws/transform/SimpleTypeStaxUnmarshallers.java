@@ -98,7 +98,7 @@ public class SimpleTypeStaxUnmarshallers {
     public static class IntegerStaxUnmarshaller implements Unmarshaller<Integer, StaxUnmarshallerContext> {
         public Integer unmarshall(StaxUnmarshallerContext unmarshallerContext) throws Exception {
             String intString = unmarshallerContext.readText();
-            return (intString == null) ? null : Integer.parseInt(intString);
+            return (intString == null || intString.equals("")) ? null : Integer.parseInt(intString);
         }
 
         private static final IntegerStaxUnmarshaller instance = new IntegerStaxUnmarshaller();
@@ -146,7 +146,7 @@ public class SimpleTypeStaxUnmarshallers {
     public static class LongStaxUnmarshaller implements Unmarshaller<Long, StaxUnmarshallerContext> {
         public Long unmarshall(StaxUnmarshallerContext unmarshallerContext) throws Exception {
             String longString = unmarshallerContext.readText();
-            return (longString == null) ? null : Long.parseLong(longString);
+            return (longString == null || longString.equals("")) ? null : Long.parseLong(longString);
         }
 
         private static final LongStaxUnmarshaller instance = new LongStaxUnmarshaller();

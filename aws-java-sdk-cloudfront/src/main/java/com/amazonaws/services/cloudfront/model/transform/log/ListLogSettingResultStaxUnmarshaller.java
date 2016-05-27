@@ -40,7 +40,7 @@ public class ListLogSettingResultStaxUnmarshaller implements Unmarshaller<ListLo
             if (xmlEvent.isEndDocument()) return listLogSettingResult;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
-                if (context.testExpression("PageImpl", targetDepth)) {
+                if (context.testExpression("KscPage", targetDepth)) {
                 	listLogSettingResult.setListLogPage(ListLogPageUnmarshallerStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }

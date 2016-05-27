@@ -77,25 +77,6 @@ public class CdnLogStaxUnmarshaller implements Unmarshaller<CdnLog, StaxUnmarsha
                     cdnLog.setCreateTime(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
-//                if (context.testExpression("type", targetDepth)) {
-//                	Integer type = IntegerStaxUnmarshaller.getInstance().unmarshall(context);
-//                	AccetypeEnum accetypeEnum = AccetypeEnum.getByCode(type);
-//                    cdnLog.setType(accetypeEnum);
-//                	continue;
-//                }
-//
-//                if (context.testExpression("cdnLog/granularity", targetDepth)) {
-//                	Integer granularity = IntegerStaxUnmarshaller.getInstance().unmarshall(context);
-//                    cdnLog.setGranularity(GranularityEnum.getByValue(granularity));
-//                    continue;
-//                }
-//                if (context.testExpression("cdnLog/status", targetDepth)) {
-//                	Integer status = IntegerStaxUnmarshaller.getInstance().unmarshall(context);
-//                    cdnLog.setStatus(StatusEnum.getByValue(status));
-//                	continue;
-//                }
-
-
             } else if (xmlEvent.isEndElement()) {
                 if (context.getCurrentDepth() < originalDepth) {
                     return cdnLog;

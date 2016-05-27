@@ -39,24 +39,24 @@ public class ListLogPageUnmarshallerStaxUnmarshaller implements Unmarshaller<Lis
             if (xmlEvent.isEndDocument()) return page;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
-                if (context.testExpression("id", targetDepth)) {
-                    page.setTotalElements(LongStaxUnmarshaller.getInstance().unmarshall(context));
+                if (context.testExpression("totalCount", targetDepth)) {
+                    page.setTotalCount(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
                 if (context.testExpression("totalPages", targetDepth)) {
                     page.setTotalPages(LongStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
-                if (context.testExpression("size", targetDepth)) {
+                if (context.testExpression("pageSize", targetDepth)) {
                     page.setPageSize(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
-                if (context.testExpression("number", targetDepth)) {
-                    page.setPageNumber(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                if (context.testExpression("pageNo", targetDepth)) {
+                    page.setPageNo(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
-                if (context.testExpression("content/content", targetDepth)) {
-                	page.getContent().add(CdnLogSettingStaxUnmarshaller.getInstance().unmarshall(context));
+                if (context.testExpression("data/data", targetDepth)) {
+                	page.getData().add(CdnLogSettingStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
                 

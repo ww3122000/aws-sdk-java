@@ -111,11 +111,13 @@ public class ListLogSettingResult implements Serializable, Cloneable {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "ListLogPage [location=" + location + ", ListLogPage="
-				+ ListLogPage + "]";
+		return "ListLogPage{" +
+				"location='" + location + '\'' +
+				", ListLogPage=" + ListLogPage +
+				'}';
 	}
 
 	@Override

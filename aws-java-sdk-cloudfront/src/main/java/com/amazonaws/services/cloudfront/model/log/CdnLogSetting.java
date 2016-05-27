@@ -3,10 +3,16 @@ package com.amazonaws.services.cloudfront.model.log;
 import com.amazonaws.services.cloudfront.model.AccetypeEnum;
 
 public class CdnLogSetting {
-	
-	private long domainId;
-	
+
+    private Long id;
+
+    private Long userId;
+
+    private Long domainId;
+
 	private String domain;
+
+    private String bucket;
 	
 	private AccetypeEnum type;
 	
@@ -14,44 +20,103 @@ public class CdnLogSetting {
 	
 	private StatusEnum status;
 
-	public long getDomainId() {
-		return domainId;
-	}
+    private Long updateTime;
 
-	public void setDomainId(long domainId) {
-		this.domainId = domainId;
-	}
+    private Long createTime;
 
-	public String getDomain() {
-		return domain;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public AccetypeEnum getType() {
-		return type;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setType(AccetypeEnum type) {
-		this.type = type;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public GranularityEnum getGranularity() {
-		return granularity;
-	}
+    public Long getDomainId() {
+        return domainId;
+    }
 
-	public void setGranularity(GranularityEnum granularity) {
-		this.granularity = granularity;
-	}
+    public void setDomainId(Long domainId) {
+        this.domainId = domainId;
+    }
 
-	public StatusEnum getStatus() {
-		return status;
-	}
+    public String getDomain() {
+        return domain;
+    }
 
-	public void setStatus(StatusEnum status) {
-		this.status = status;
-	}
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
 
+    public String getBucket() {
+        return bucket;
+    }
+
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
+    }
+
+    public AccetypeEnum getType() {
+        return type;
+    }
+
+    public void setType(AccetypeEnum type) {
+        this.type = type;
+    }
+
+    public GranularityEnum getGranularity() {
+        return granularity;
+    }
+
+    public void setGranularity(GranularityEnum granularity) {
+        this.granularity = granularity;
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    public Long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Long updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "CdnLogSetting{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", domainId=" + domainId +
+                ", domain='" + domain + '\'' +
+                ", bucket='" + bucket + '\'' +
+                ", type=" + type +
+                ", granularity=" + granularity +
+                ", status=" + status +
+                ", updateTime=" + updateTime +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

@@ -113,7 +113,7 @@ public class GetLogResult implements Serializable, Cloneable {
 
 	@Override
 	public String toString() {
-		return "GetLogResult{" +
+		return "CdnLogPage{" +
 				"location='" + location + '\'' +
 				", logPage=" + logPage +
 				'}';
