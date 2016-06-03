@@ -59,8 +59,17 @@ public class StandardErrorUnmarshaller extends AbstractErrorUnmarshaller<Node> {
         XPath xpath = xpath();
         String errorCode = parseErrorCode(in, xpath);
         String errorType = asString("ErrorResponse/Error/Type", in, xpath);
+        if (errorType==null){
+            errorType = asString("AwsErrorResponse/error/type", in, xpath);
+        }
         String requestId = asString("ErrorResponse/RequestId", in, xpath);
+        if (requestId==null){
+            requestId = asString("AwsErrorResponse/requestId", in, xpath);
+        }
         String message = asString("ErrorResponse/Error/Message", in, xpath);
+        if (message==null){
+            message = asString("AwsErrorResponse/error/message", in, xpath);
+        }
 
         AmazonServiceException ase = newException(message);
         ase.setErrorCode(errorCode);
@@ -90,11 +99,13 @@ public class StandardErrorUnmarshaller extends AbstractErrorUnmarshaller<Node> {
      *             code.
      */
     public String parseErrorCode(Node in) throws Exception {
-        return asString("ErrorResponse/Error/Code", in);
+        String result = asString("ErrorResponse/Error/Code", in);
+        return result==null ? asString("AwsErrorResponse/error/code", in) : result;
     }
 
     public String parseErrorCode(Node in, XPath xpath) throws Exception {
-        return asString("ErrorResponse/Error/Code", in, xpath);
+        String result = asString("ErrorResponse/Error/Code", in, xpath);
+        return result==null ? asString("AwsErrorResponse/error/code", in, xpath) : result;
     }
 
     /**
