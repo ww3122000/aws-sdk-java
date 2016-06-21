@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>com.amazonaws</groupId>
 		<artifactId>aws-java-sdk-pom</artifactId>
-		<version>1.10.47-SNAPSHOT</version>
+		<version>1.10.47</version>
 	</parent>
 	<groupId>com.amazonaws</groupId>
 	<artifactId>ksc-aws-java-sdk-core</artifactId>
-	<version>1.10.47.04</version>
+	<version>1.10.47.05</version>
 	<name>AWS SDK for Java - Core</name>
 	<description>The AWS SDK for Java - Core module holds the classes that is used by the individual service clients to interact with Amazon Web Services. Users need to depend on aws-java-sdk artifact for accessing individual client classes.</description>
 	<url>https://aws.amazon.com/sdkforjava</url>
@@ -74,12 +74,12 @@
 		<repository>
 			<id>releases</id>
 			<name>Nexus Release Repository</name>
-			<url>http://scm.ks3.ksyun.com/nexus/content/repositories/releases/</url>
+			<url>http://scm.ks3.ksyun.com:8081/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Nexus Snapshot Repository</name>
-			<url>http://scm.ks3.ksyun.com/nexus/content/repositories/snapshots/</url>
+			<url>http://scm.ks3.ksyun.com:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<build>

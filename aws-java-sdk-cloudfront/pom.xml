@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>com.amazonaws</groupId>
 		<artifactId>aws-java-sdk-pom</artifactId>
-		<version>1.10.47-SNAPSHOT</version>
+		<version>1.10.47</version>
 	</parent>
 	<groupId>com.amazonaws</groupId>
 	<artifactId>ksc-java-sdk-cloudfront</artifactId>
-	<version>1.10.47.05-SNAPSHOT</version>
+	<version>1.10.47.06</version>
 	<name>ksc Java SDK for Amazon CloudFront</name>
 	<description>The AWS Java SDK for Amazon CloudFront module holds the client classes that are used for communicating with Amazon CloudFront Service</description>
 	<url>https://aws.amazon.com/sdkforjava</url>
@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>ksc-aws-java-sdk-core</artifactId>
-			<version>1.10.47.04</version>
+			<version>1.10.47.05</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -34,12 +34,12 @@
 		<repository>
 			<id>releases</id>
 			<name>Nexus Release Repository</name>
-			<url>http://scm.ks3.ksyun.com/nexus/content/repositories/releases/</url>
+			<url>http://scm.ks3.ksyun.com:8081/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Nexus Snapshot Repository</name>
-			<url>http://scm.ks3.ksyun.com/nexus/content/repositories/snapshots/</url>
+			<url>http://scm.ks3.ksyun.com:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<build>

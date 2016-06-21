@@ -11,6 +11,21 @@
       <Domain>cdn.api.ksyun.com</Domain>
     </Region>
     <Region>
+      <Name>cn-shanghai-2</Name>
+      <Endpoint>
+        <ServiceName>cdn</ServiceName>
+        <Http>true</Http>
+        <Https>false</Https>
+        <Hostname>cdn.cn-shanghai-2.inner.api.ksyun.com</Hostname>
+      </Endpoint>
+      <Endpoint>
+        <ServiceName>cdn</ServiceName>
+        <Http>true</Http>
+        <Https>false</Https>
+        <Hostname>cdn.cn-shanghai-2.api.ksyun.com</Hostname>
+      </Endpoint>
+    </Region>
+    <Region>
       <Name>us-east-1</Name>
       <Endpoint>
         <ServiceName>cloudhsm</ServiceName>
@@ -2799,6 +2814,7 @@
       <Name>cdn</Name>
       <FullName>KS3 CloudFront</FullName>
       <RegionName>cn-shanghai-1</RegionName>
+      <RegionName>cn-shanghai-2</RegionName>
     </Service>
     <Service>
       <Name>cloudsearch</Name>

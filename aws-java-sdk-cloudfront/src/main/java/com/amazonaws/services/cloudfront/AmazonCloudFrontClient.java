@@ -28,6 +28,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.AmazonWebServiceClient;
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.Protocol;
 import com.amazonaws.Request;
 import com.amazonaws.Response;
 import com.amazonaws.ResponseMetadata;
@@ -145,10 +146,31 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
      *                       client connects to AmazonCloudFront
      *                       (ex: proxy settings, retry counts, etc.).
      */
-    public AmazonCloudFrontClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
+    public AmazonCloudFrontClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration, String endpoint, String region) {
         super(clientConfiguration);
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
-        init();
+        init(endpoint, region);
+    }
+    
+    /**
+     * Constructs a new client to invoke service methods on
+     * AmazonCloudFront using the specified AWS account credentials
+     * and client configuration options.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not
+     * return until the service call completes.
+     *
+     * @param awsCredentials The AWS credentials (access key ID and secret key) to use
+     *                       when authenticating with AWS services.
+     * @param clientConfiguration The client configuration options controlling how this
+     *                       client connects to AmazonCloudFront
+     *                       (ex: proxy settings, retry counts, etc.).
+     */
+    public AmazonCloudFrontClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
+    	super(clientConfiguration);
+    	this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
+    	init();
     }
 
     /**
@@ -211,8 +233,12 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
         this.awsCredentialsProvider = awsCredentialsProvider;
         init();
     }
+    
+    private void init(){
+    	init("http://cdn.api.ksyun.com", "cn-shanghai-1");
+    }
 
-    private void init() {
+    private void init(String endpoint, String region) {
         exceptionUnmarshallers.add(new TooManyCookieNamesInWhiteListExceptionUnmarshaller());
         exceptionUnmarshallers.add(new TooManyHeadersInForwardedValuesExceptionUnmarshaller());
         exceptionUnmarshallers.add(new InvalidLocationCodeExceptionUnmarshaller());
@@ -266,18 +292,18 @@ public class AmazonCloudFrontClient extends AmazonWebServiceClient implements Am
         exceptionUnmarshallers.add(new StandardErrorUnmarshaller());
         
         // calling this.setEndPoint(...) will also modify the signer accordingly
-        this.setEndpoint("http://cdn.api.ksyun.com");
-        
-        this.setSignerRegionOverride("cn-shanghai-1");
+        this.setEndpoint(endpoint);
+//        this.setEndpoint("http://cdn.api.ksyun.com");
+        this.clientConfiguration.setProtocol(Protocol.HTTP);
+        this.setSignerRegionOverride(region);
         this.setServiceNameIntern("cdn");
-        this.setRegion(RegionUtils.getRegion("cn-shanghai-1"));
+        this.setRegion(RegionUtils.getRegion(region));
         
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain(
                 "/com/amazonaws/services/cloudfront/request.handlers"));
         requestHandler2s.addAll(chainFactory.newRequestHandler2Chain(
                 "/com/amazonaws/services/cloudfront/request.handler2s"));
-    
     }
 
     /**
