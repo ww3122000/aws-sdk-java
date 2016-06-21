@@ -16,12 +16,6 @@
         <ServiceName>cdn</ServiceName>
         <Http>true</Http>
         <Https>false</Https>
-        <Hostname>cdn.cn-shanghai-2.inner.api.ksyun.com</Hostname>
-      </Endpoint>
-      <Endpoint>
-        <ServiceName>cdn</ServiceName>
-        <Http>true</Http>
-        <Https>false</Https>
         <Hostname>cdn.cn-shanghai-2.api.ksyun.com</Hostname>
       </Endpoint>
     </Region>
