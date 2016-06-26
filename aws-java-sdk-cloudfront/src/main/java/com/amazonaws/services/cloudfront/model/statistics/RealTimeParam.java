@@ -1,11 +1,10 @@
 package com.amazonaws.services.cloudfront.model.statistics;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 /**
  * 实时状态码<br>.
@@ -16,6 +15,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="RealTimeStatusCodeHitRate")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class RealTimeParam {
+
+	/** 是否返回状态码详细信息. */
+	@XmlElement(name = "StatusCodeDetail")
+	protected Boolean statusCodeDetail = false;
 
     /** 用户id. */
     @XmlElement(name = "UserId")
@@ -32,6 +35,14 @@ public class RealTimeParam {
     /** 域名，以分号分隔, 如果没有则为all. */
     @XmlElement(name = "Domains")
     protected String domains;
+
+	public Boolean getStatusCodeDetail() {
+		return statusCodeDetail;
+	}
+
+	public void setStatusCodeDetail(Boolean statusCodeDetail) {
+		this.statusCodeDetail = statusCodeDetail;
+	}
 
 	/**
 	 * Gets the 用户id.

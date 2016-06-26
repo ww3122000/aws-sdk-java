@@ -15,12 +15,13 @@
 
 package com.amazonaws.services.cloudfront.model.statistics;
 
-import javax.xml.stream.events.XMLEvent;
-
+import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.BooleanStaxUnmarshaller;
 import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.LongStaxUnmarshaller;
 import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.StringStaxUnmarshaller;
 import com.amazonaws.transform.StaxUnmarshallerContext;
 import com.amazonaws.transform.Unmarshaller;
+
+import javax.xml.stream.events.XMLEvent;
 
 /**
  * CalculateBandwidth StAX Unmarshaller
@@ -38,6 +39,10 @@ public class RealTimeStatusCodeHitRateStaxUnmarshaller implements Unmarshaller<R
             if (xmlEvent.isEndDocument()) return rate;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
+                if (context.testExpression("StatusCodeDetail", targetDepth)) {
+                    rate.setStatusCodeDetail(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
                 if (context.testExpression("UserId", targetDepth)) {
                     rate.setUserId(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;

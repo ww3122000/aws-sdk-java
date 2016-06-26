@@ -14,15 +14,6 @@
  */
 package com.amazonaws.services.cloudfront.model.transform;
 
-import static com.amazonaws.util.StringUtils.UTF8;
-
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.DefaultRequest;
 import com.amazonaws.Request;
@@ -33,6 +24,15 @@ import com.amazonaws.transform.Marshaller;
 import com.amazonaws.util.StringInputStream;
 import com.amazonaws.util.StringUtils;
 import com.amazonaws.util.XMLWriter;
+
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.amazonaws.util.StringUtils.UTF8;
 
 /**
  * Create RealTimeStatusCodeHitRater Request Marshaller
@@ -117,6 +117,10 @@ public class RealTimeStatusCodeHitRateRequestMarshaller
 			if (realTimeParam != null) {
 				xmlWriter.startElement("RealTimeStatusCodeHitRate");
 				if (realTimeParam != null) {
+                    String type = realTimeParam.getStatusCodeDetail() ? "true" : "false";
+                    if (!StringUtils.isNullOrEmpty(type)) {
+                        xmlWriter.startElement("StatusCodeDetail").value(type).endElement();
+                    }
 					String userId = realTimeParam.getUserId();
 					if (!StringUtils.isNullOrEmpty(userId)) {
 						xmlWriter.startElement("UserId").value(userId).endElement();

@@ -1,12 +1,11 @@
 package com.amazonaws.services.cloudfront.model.statistics;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 实时状态码<br>.
@@ -17,6 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="RealTimeStatusCodeHitRate")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class RealTimeStatusCodeHitRate {
+    /** 是否返回状态码详细信息. */
+    @XmlElement(name = "StatusCodeDetail")
+    protected Boolean statusCodeDetail = false;
 
     /** 用户id. */
     @XmlElement(name = "UserId")
@@ -44,7 +46,15 @@ public class RealTimeStatusCodeHitRate {
 		data = new ArrayList<StatusCodeHitRate>();
 	}
 
-	/**
+    public Boolean getStatusCodeDetail() {
+        return statusCodeDetail;
+    }
+
+    public void setStatusCodeDetail(Boolean statusCodeDetail) {
+        this.statusCodeDetail = statusCodeDetail;
+    }
+
+    /**
      * Gets the 用户id.
      *
      * @return the 用户id
