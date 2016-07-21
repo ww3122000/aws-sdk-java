@@ -10,35 +10,26 @@ public enum RegionEnum {
     /**  全部 all *. */
     all("all", "全部", "all"),
 
-    /**  澳门 Macau *. */
-    mo("mo", "澳门", "Macau"),
-
-    /**  香港 HongKong *. */
-    hk("hk", "香港", "HongKong"),
-
-    /**  新加坡  Singapore *. */
-    sg("sg", "新加坡", "Singapore"),
-
-    /**  韩国 Korea *. */
-    kr("kr", "韩国", "Korea"),
-
-    /**  台湾 Taiwan *. */
-    tw("tw", "台湾", "Taiwan"),
-
-    /**  美国 USA *. */
-    us("us", "美国", "USA"),
-
-    /**  澳大利亚 Australia *. */
-    au("au", "澳大利亚", "Australia"),
-
-    /**  日本 Japan *. */
-    jp("jp", "日本", "Japan"),
-
-    /**  加拿大 Canada *. */
-    ca("ca", "加拿大", "Canada"),
-
     /**  中国大陆 China *. */
-    cn("cn", "中国大陆", "China"),
+    CN("CN", "中国大陆", "China"),
+
+    /**  北美洲 NorthAmerica *. */
+    NA("NA", "北美洲", "NorthAmerica"),
+
+    /**  亚洲(除中国大陆) Asia *. */
+    AS("AS", "亚洲(除中国大陆)", "Asia"),
+
+    /**  欧洲 Europe *. */
+    EU("EU", "欧洲", "Europe"),
+
+    /**  南美洲 SouthAmerica *. */
+    SA("SA", "南美洲", "SouthAmerica"),
+
+    /**  大洋洲 Oceanica *. */
+    AU("AU", "大洋洲", "Oceanica"),
+
+    /**  非洲 Africa *. */
+    AF("AF", "非洲", "Africa"),
 
     /**  未知 Unknown *. */
     other("other", "未知", "Unknown");
