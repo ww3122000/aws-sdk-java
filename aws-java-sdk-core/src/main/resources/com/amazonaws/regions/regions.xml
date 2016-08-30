@@ -20,6 +20,15 @@
       </Endpoint>
     </Region>
     <Region>
+      <Name>cn-beijing-6</Name>
+      <Endpoint>
+        <ServiceName>cdn</ServiceName>
+        <Http>true</Http>
+        <Https>false</Https>
+        <Hostname>cdn.inner.api.ksyun.com</Hostname>
+      </Endpoint>
+    </Region>
+    <Region>
       <Name>us-east-1</Name>
       <Endpoint>
         <ServiceName>cloudhsm</ServiceName>
